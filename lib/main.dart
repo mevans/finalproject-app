@@ -36,6 +36,7 @@ void main() async {
   final url = 'http://10.0.2.2:8000/patient/';
   final dio = Dio()..options.baseUrl = url;
   final tokenDio = Dio()..options.baseUrl = url;
+
   final authInterceptor = AuthenticationInterceptor(
     dio: dio,
     tokenDio: tokenDio,
