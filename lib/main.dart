@@ -4,6 +4,7 @@ import 'package:app/features/report/report.dart';
 import 'package:app/features/splash/splash.dart';
 import 'package:app/repositories/token_repository.dart';
 import 'package:app/repositories/user_repository.dart';
+import 'package:app/repositories/variable_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +43,18 @@ void main() async {
   );
   dio.interceptors.add(authInterceptor);
   runApp(
-    App(
-      userRepository: UserRepository(
-        dio: dio,
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<VariableRepository>(
+            create: (ctx) => VariableRepository(dio: dio)),
+      ],
+      child: App(
+        userRepository: UserRepository(
+          dio: dio,
+        ),
+        tokenRepository: tokenRepository,
+        authenticationInterceptor: authInterceptor,
       ),
-      tokenRepository: tokenRepository,
-      authenticationInterceptor: authInterceptor,
     ),
   );
 }

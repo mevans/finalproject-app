@@ -1,11 +1,29 @@
 import 'package:app/authentication/authentication_bloc.dart';
+import 'package:app/features/report/bloc/report_bloc.dart';
+import 'package:app/repositories/variable_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ReportPage extends StatelessWidget {
+class ReportPage extends StatefulWidget {
+  @override
+  _ReportPageState createState() => _ReportPageState();
+}
+
+class _ReportPageState extends State<ReportPage> {
+  ReportBloc _reportBloc;
+
+  @override
+  void initState() {
+    _reportBloc =
+        ReportBloc(variableRepository: context.read<VariableRepository>());
+    _reportBloc.add(ReportEnterPageEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+    return BlocBuilder<ReportBloc, ReportState>(
+      cubit: _reportBloc,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -18,21 +36,9 @@ class ReportPage extends StatelessWidget {
               )
             ],
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                    "Currently logged in as:${state.user?.firstName}${state.user?.lastName}"),
-                RaisedButton(
-                  child: Text("Check User"),
-                  onPressed: () {
-                    context.read<AuthenticationBloc>().add(GetUser());
-                  },
-                ),
-              ],
-            ),
-          ),
+          body: !state.initialising
+              ? Center(child: Text('${state.variables.length}'))
+              : Center(child: CircularProgressIndicator()),
         );
       },
     );
