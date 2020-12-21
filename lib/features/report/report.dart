@@ -1,5 +1,6 @@
 import 'package:app/authentication/authentication_bloc.dart';
 import 'package:app/features/report/bloc/report_bloc.dart';
+import 'package:app/features/report/component/variables_list.dart';
 import 'package:app/repositories/variable_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,29 @@ class _ReportPageState extends State<ReportPage> {
             ],
           ),
           body: !state.initialising
-              ? Center(child: Text('${state.variables.length}'))
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: VariablesList(
+                          variables: state.variables,
+                          expandedPanels: state.openPanels,
+                          onPanelToggled: (id) => _reportBloc.add(
+                            ReportTogglePanelExpansion(id),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("Report"),
+                      ),
+                    )
+                  ],
+                )
               : Center(child: CircularProgressIndicator()),
         );
       },

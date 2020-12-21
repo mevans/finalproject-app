@@ -2,7 +2,7 @@ import 'package:app/models/choice_type.dart';
 import 'package:app/models/range_type.dart';
 import 'package:equatable/equatable.dart';
 
-enum VariableType { range, choice }
+enum VariableType { from, range, choice }
 
 extension VariableTypeIndex on VariableType {
   operator [](String key) => (name) {
@@ -32,9 +32,15 @@ class Variable extends Equatable {
   });
 
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [id, name, type, range, choice];
 
   factory Variable.fromJson(Map<String, dynamic> json) {
-    return Variable(id: json['id']);
+    return Variable(
+      id: json['id'],
+      name: json['name'],
+      type: VariableType.from[json['type']],
+      choice: json['choice'] != null ? ChoiceType.fromJson(json['choice']) : null,
+      range: json['range'] != null ? RangeType.fromJson(json['range']) : null,
+    );
   }
 }

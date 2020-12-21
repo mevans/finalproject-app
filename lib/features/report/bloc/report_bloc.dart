@@ -22,5 +22,16 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         variables: variables,
       );
     }
+    if (event is ReportTogglePanelExpansion) {
+      final open = [...state.openPanels];
+      if (open.contains(event.id)) {
+        open.remove(event.id);
+      } else {
+        open.add(event.id);
+      }
+      yield state.copyWith(
+        openPanels: open,
+      );
+    }
   }
 }

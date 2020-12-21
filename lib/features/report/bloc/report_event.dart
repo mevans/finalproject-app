@@ -6,3 +6,11 @@ abstract class ReportEvent extends Equatable {
 }
 
 class ReportEnterPageEvent extends ReportEvent {}
+
+class ReportTogglePanelExpansion extends ReportEvent {
+  final int id;
+
+  ReportTogglePanelExpansion(this.id);
+
+  List<Object> get props => [id];
+}
