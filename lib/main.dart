@@ -36,7 +36,6 @@ void main() async {
   final url = 'http://10.0.2.2:8000/patient/';
   final dio = Dio()..options.baseUrl = url;
   final tokenDio = Dio()..options.baseUrl = url;
-
   final authInterceptor = AuthenticationInterceptor(
     dio: dio,
     tokenDio: tokenDio,
@@ -99,6 +98,9 @@ class _AppState extends State<App> {
               case AuthenticationStatus.initial:
                 return SplashPage();
               case AuthenticationStatus.authenticated:
+                if (state.initialising) {
+                  return SplashPage();
+                }
                 return ReportPage();
               case AuthenticationStatus.unauthenticated:
                 return LoginPage(

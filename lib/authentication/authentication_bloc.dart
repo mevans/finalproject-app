@@ -70,6 +70,7 @@ class AuthenticationBloc
       final user = await userRepository.getUser();
       yield state.copyWith(
         user: Nullable(user),
+        initialising: false,
       );
     }
 
