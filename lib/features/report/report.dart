@@ -1,6 +1,6 @@
 import 'package:app/authentication/authentication_bloc.dart';
 import 'package:app/features/report/bloc/report_bloc.dart';
-import 'package:app/features/report/component/variables_list.dart';
+import 'package:app/features/report/components/variables_list.dart';
 import 'package:app/repositories/variable_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,18 +44,24 @@ class _ReportPageState extends State<ReportPage> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: VariablesList(
-                          variables: state.variables,
-                          expandedPanels: state.openPanels,
-                          onPanelToggled: (id) => _reportBloc.add(
-                            ReportTogglePanelExpansion(id),
-                          ),
-                        ),
+                            variables: state.variables,
+                            expandedPanels: state.openPanels,
+                            choiceResponses: state.choiceResponses,
+                            rangeResponses: state.rangeResponses,
+                            onPanelToggled: (id) => _reportBloc.add(
+                                  ReportTogglePanelExpansion(id),
+                                ),
+                            onChoiceToggle: (response) => _reportBloc.add(
+                                  ReportChoiceResponseToggle(response),
+                                )),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: !state.submittingReport
+                            ? () => _reportBloc.add(ReportSubmitReportEvent())
+                            : null,
                         child: Text("Report"),
                       ),
                     )

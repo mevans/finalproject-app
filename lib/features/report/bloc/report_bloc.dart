@@ -1,3 +1,7 @@
+import 'package:app/models/Report.dart';
+import 'package:app/models/choice_response.dart';
+import 'package:app/models/range_response.dart';
+import 'package:app/models/response.dart';
 import 'package:app/models/variable_instance.dart';
 import 'package:app/repositories/variable_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -31,6 +35,35 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       }
       yield state.copyWith(
         openPanels: open,
+      );
+    }
+    if (event is ReportChoiceResponseToggle) {
+      final choiceResponses = [...state.choiceResponses];
+      if (choiceResponses.contains(event.response)) {
+        choiceResponses.remove(event.response);
+      } else {
+        final existing = choiceResponses.firstWhere(
+            (r) => r.variable == event.response.variable,
+            orElse: () => null);
+        if (existing == null) {
+          choiceResponses.add(event.response);
+        } else {
+          choiceResponses.remove(existing);
+          choiceResponses.add(event.response);
+        }
+      }
+      yield state.copyWith(
+        choiceResponses: choiceResponses,
+      );
+    }
+    if (event is ReportSubmitReportEvent) {
+      final report = Report(choiceResponses: state.choiceResponses);
+      yield state.copyWith(
+        submittingReport: true,
+      );
+      await variableRepository.submitReport(report);
+      yield state.copyWith(
+        submittingReport: false,
       );
     }
   }

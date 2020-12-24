@@ -1,3 +1,4 @@
+import 'package:app/models/Report.dart';
 import 'package:app/models/variable_instance.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 
@@ -11,5 +12,9 @@ class VariableRepository {
       List instances = response.data;
       return instances.map((i) => VariableInstance.fromJson(i)).toList();
     });
+  }
+
+  Future<dynamic> submitReport(Report report) {
+    return this.dio.post('report', data: report.toJson());
   }
 }
