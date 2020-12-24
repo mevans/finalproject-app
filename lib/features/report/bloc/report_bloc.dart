@@ -81,6 +81,9 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       await variableRepository.submitReport(report);
       yield state.copyWith(
         submittingReport: false,
+        rangeResponses: [],
+        choiceResponses: [],
+        openPanels: [],
       );
     }
   }

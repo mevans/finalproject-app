@@ -26,6 +26,8 @@ class _ReportPageState extends State<ReportPage> {
     return BlocBuilder<ReportBloc, ReportState>(
       cubit: _reportBloc,
       builder: (context, state) {
+        final reportButtonDisabled = state.submittingReport ||
+            (state.rangeResponses.isEmpty && state.choiceResponses.isEmpty);
         return Scaffold(
           appBar: AppBar(
             actions: [
@@ -54,16 +56,15 @@ class _ReportPageState extends State<ReportPage> {
                           onChoiceToggle: (response) => _reportBloc.add(
                             ReportChoiceResponseToggle(response),
                           ),
-                          onRangeResponse: (response) => _reportBloc.add(
-                            ReportRangeResponse(response)
-                          ),
+                          onRangeResponse: (response) =>
+                              _reportBloc.add(ReportRangeResponse(response)),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
                       child: ElevatedButton(
-                        onPressed: !state.submittingReport
+                        onPressed: !reportButtonDisabled
                             ? () => _reportBloc.add(ReportSubmitReportEvent())
                             : null,
                         child: Text("Report"),
