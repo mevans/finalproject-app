@@ -1,4 +1,4 @@
-import 'package:app/models/Report.dart';
+import 'package:app/models/report.dart';
 import 'package:app/models/variable_instance.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 

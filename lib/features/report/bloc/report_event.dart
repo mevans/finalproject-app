@@ -17,14 +17,18 @@ class ReportTogglePanelExpansion extends ReportEvent {
   List<Object> get props => [id];
 }
 
-abstract class ReportResponseToggle<T extends Response> extends ReportEvent {
+abstract class ReportResponse<T extends Response> extends ReportEvent {
   final T response;
 
-  ReportResponseToggle(this.response);
+  ReportResponse(this.response);
 
   List<Object> get props => [response];
 }
 
-class ReportChoiceResponseToggle extends ReportResponseToggle<ChoiceResponse> {
+class ReportChoiceResponseToggle extends ReportResponse<ChoiceResponse> {
   ReportChoiceResponseToggle(ChoiceResponse response) : super(response);
+}
+
+class ReportRangeResponse extends ReportResponse<RangeResponse> {
+  ReportRangeResponse(RangeResponse response) : super(response);
 }

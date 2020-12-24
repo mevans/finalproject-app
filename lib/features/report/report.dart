@@ -44,16 +44,20 @@ class _ReportPageState extends State<ReportPage> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: VariablesList(
-                            variables: state.variables,
-                            expandedPanels: state.openPanels,
-                            choiceResponses: state.choiceResponses,
-                            rangeResponses: state.rangeResponses,
-                            onPanelToggled: (id) => _reportBloc.add(
-                                  ReportTogglePanelExpansion(id),
-                                ),
-                            onChoiceToggle: (response) => _reportBloc.add(
-                                  ReportChoiceResponseToggle(response),
-                                )),
+                          variables: state.variables,
+                          expandedPanels: state.openPanels,
+                          choiceResponses: state.choiceResponses,
+                          rangeResponses: state.rangeResponses,
+                          onPanelToggled: (id) => _reportBloc.add(
+                            ReportTogglePanelExpansion(id),
+                          ),
+                          onChoiceToggle: (response) => _reportBloc.add(
+                            ReportChoiceResponseToggle(response),
+                          ),
+                          onRangeResponse: (response) => _reportBloc.add(
+                            ReportRangeResponse(response)
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
