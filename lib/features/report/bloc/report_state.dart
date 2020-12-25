@@ -7,6 +7,7 @@ class ReportState extends Equatable {
   final List<ChoiceResponse> choiceResponses;
   final List<RangeResponse> rangeResponses;
   final bool submittingReport;
+  final String note;
 
   ReportState({
     @required this.initialising,
@@ -15,6 +16,7 @@ class ReportState extends Equatable {
     @required this.choiceResponses,
     @required this.rangeResponses,
     @required this.submittingReport,
+    @required this.note,
   });
 
   @override
@@ -25,6 +27,7 @@ class ReportState extends Equatable {
         choiceResponses,
         rangeResponses,
         submittingReport,
+        note,
       ];
 
   static ReportState initial = ReportState(
@@ -34,6 +37,7 @@ class ReportState extends Equatable {
     choiceResponses: [],
     rangeResponses: [],
     submittingReport: false,
+    note: "",
   );
 
   ReportState copyWith({
@@ -43,6 +47,7 @@ class ReportState extends Equatable {
     List<ChoiceResponse> choiceResponses,
     List<RangeResponse> rangeResponses,
     bool submittingReport,
+    String note,
   }) =>
       ReportState(
         initialising: initialising ?? this.initialising,
@@ -51,5 +56,6 @@ class ReportState extends Equatable {
         choiceResponses: choiceResponses ?? this.choiceResponses,
         rangeResponses: rangeResponses ?? this.rangeResponses,
         submittingReport: submittingReport ?? this.submittingReport,
+        note: note ?? this.note,
       );
 }

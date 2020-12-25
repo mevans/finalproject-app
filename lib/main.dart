@@ -98,6 +98,9 @@ class _AppState extends State<App> {
         return authenticationBloc;
       },
       child: MaterialApp(
+        theme: ThemeData(),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (ctx, state) {

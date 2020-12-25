@@ -40,3 +40,11 @@ class ReportRangeClear extends ReportEvent {
 
   List<Object> get props => [];
 }
+
+class ReportUpdateNote extends ReportEvent {
+  final String note;
+
+  ReportUpdateNote(this.note);
+
+  List<Object> get props => [note];
+}

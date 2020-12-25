@@ -72,7 +72,7 @@ class VariablesList extends StatelessWidget {
                   "${variable.variable.name}",
                   style: active
                       ? TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).accentColor,
                           fontWeight: FontWeight.bold,
                         )
                       : null,

@@ -1,6 +1,6 @@
-import 'package:app/models/report.dart';
 import 'package:app/models/choice_response.dart';
 import 'package:app/models/range_response.dart';
+import 'package:app/models/report.dart';
 import 'package:app/models/response.dart';
 import 'package:app/models/variable_instance.dart';
 import 'package:app/repositories/variable_repository.dart';
@@ -59,7 +59,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     if (event is ReportRangeResponse) {
       final rangeResponses = [...state.rangeResponses];
       final existing = rangeResponses.firstWhere(
-              (r) => r.variable == event.response.variable,
+          (r) => r.variable == event.response.variable,
           orElse: () => null);
       if (existing != null) {
         rangeResponses.remove(existing);
@@ -72,8 +72,9 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     }
     if (event is ReportSubmitReportEvent) {
       final report = Report(
-          choiceResponses: state.choiceResponses,
-          rangeResponses: state.rangeResponses,
+        choiceResponses: state.choiceResponses,
+        rangeResponses: state.rangeResponses,
+        note: state.note,
       );
       yield state.copyWith(
         submittingReport: true,
@@ -84,6 +85,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         rangeResponses: [],
         choiceResponses: [],
         openPanels: [],
+        note: "",
       );
     }
     if (event is ReportRangeClear) {
@@ -91,6 +93,11 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       rangeResponses.removeWhere((response) => response.variable == event.id);
       yield state.copyWith(
         rangeResponses: rangeResponses,
+      );
+    }
+    if (event is ReportUpdateNote) {
+      yield state.copyWith(
+        note: event.note,
       );
     }
   }
