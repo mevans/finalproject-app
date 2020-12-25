@@ -56,8 +56,12 @@ class _ReportPageState extends State<ReportPage> {
                           onChoiceToggle: (response) => _reportBloc.add(
                             ReportChoiceResponseToggle(response),
                           ),
-                          onRangeResponse: (response) =>
-                              _reportBloc.add(ReportRangeResponse(response)),
+                          onRangeResponse: (response) => _reportBloc.add(
+                            ReportRangeResponse(response),
+                          ),
+                          onRangeClear: (variable) => _reportBloc.add(
+                            ReportRangeClear(variable),
+                          ),
                         ),
                       ),
                     ),

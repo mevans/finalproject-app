@@ -86,5 +86,12 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         openPanels: [],
       );
     }
+    if (event is ReportRangeClear) {
+      final rangeResponses = [...state.rangeResponses];
+      rangeResponses.removeWhere((response) => response.variable == event.id);
+      yield state.copyWith(
+        rangeResponses: rangeResponses,
+      );
+    }
   }
 }

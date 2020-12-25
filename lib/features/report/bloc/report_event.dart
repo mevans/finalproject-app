@@ -32,3 +32,11 @@ class ReportChoiceResponseToggle extends ReportResponse<ChoiceResponse> {
 class ReportRangeResponse extends ReportResponse<RangeResponse> {
   ReportRangeResponse(RangeResponse response) : super(response);
 }
+
+class ReportRangeClear extends ReportEvent {
+  final int id;
+
+  ReportRangeClear(this.id);
+
+  List<Object> get props => [];
+}

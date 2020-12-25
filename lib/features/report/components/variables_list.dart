@@ -14,6 +14,7 @@ class VariablesList extends StatelessWidget {
   final ValueChanged<int> onPanelToggled;
   final ValueChanged<ChoiceResponse> onChoiceToggle;
   final ValueChanged<RangeResponse> onRangeResponse;
+  final ValueChanged<int> onRangeClear;
 
   const VariablesList({
     Key key,
@@ -24,6 +25,7 @@ class VariablesList extends StatelessWidget {
     this.onPanelToggled,
     this.onChoiceToggle,
     this.onRangeResponse,
+    this.onRangeClear,
   }) : super(key: key);
 
   @override
@@ -46,6 +48,7 @@ class VariablesList extends StatelessWidget {
                 rangeType: variable.variable.range,
                 rangeResponse: response,
                 onValueChanged: onRangeResponse,
+                onClear: () => onRangeClear(variable.variable.id),
               );
               break;
             case VariableType.choice:
