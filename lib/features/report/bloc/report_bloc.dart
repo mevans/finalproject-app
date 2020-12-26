@@ -101,4 +101,11 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       );
     }
   }
+
+  List<int> respondedVariables() {
+    return [
+      ...state.rangeResponses.map((r) => r.variable),
+      ...state.choiceResponses.map((r) => r.variable),
+    ];
+  }
 }

@@ -19,8 +19,8 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _emailController =
-      TextEditingController(text: 'testpatient5@gmail.com');
-  final _passwordController = TextEditingController(text: 'test');
+      TextEditingController(text: 'patient@gmail.com');
+  final _passwordController = TextEditingController(text: 'password');
 
   LoginBloc get _loginBloc => widget.loginBloc;
 

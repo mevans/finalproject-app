@@ -33,6 +33,9 @@ class RangeVariableInput extends StatelessWidget {
             onChanged: (value) => onValueChanged(
               RangeResponse(rangeType.variable, value.round()),
             ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+            ),
           ),
         ),
       ],

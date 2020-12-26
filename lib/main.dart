@@ -34,7 +34,7 @@ void main() async {
   // Bloc.observer = LoggerBloc();
   final secureStorage = FlutterSecureStorage();
   final tokenRepository = TokenRepository(secureStorage: secureStorage);
-  final url = 'http://192.168.1.112:8000/patient/';
+  final url = 'http://192.168.1.111:8000/patient/';
   final dio = Dio()..options.baseUrl = url;
   final tokenDio = Dio()..options.baseUrl = url;
   final authInterceptor = AuthenticationInterceptor(

@@ -20,11 +20,6 @@ class AuthenticationInterceptor extends Interceptor {
   }
 
   @override
-  Future<dynamic> onResponse(Response response) {
-    return Future.delayed(Duration(seconds: 1)).then((_) => super.onResponse(response));
-  }
-
-  @override
   Future<void> onRequest(RequestOptions options) async {
     if (!initialised) {
       return options;
@@ -49,23 +44,19 @@ class AuthenticationInterceptor extends Interceptor {
       dio.interceptors.responseLock.lock();
       final state = authenticationBloc.state;
 
-      return tokenDio
-          .post('auth/refresh-token', data: {'refresh': state.authData.refresh})
-          .then(
-            (response) {
-              final data = response.data;
-              final refreshedToken = data['access'];
-              authenticationBloc
-                  .add(RefreshTokenSuccess(access: refreshedToken));
-              options.headers['Authorization'] = 'Bearer $refreshedToken';
-            },
-          )
-          .whenComplete(() {
-            dio.interceptors.requestLock.unlock();
-            dio.interceptors.responseLock.unlock();
-          })
-          .then((value) => dio.request(options.path, options: options))
-          .catchError((_) => authenticationBloc.add(RefreshTokenFailure()));
+      try {
+        final response = await tokenDio.post('auth/refresh-token',
+            data: {'refresh': state.authData.refresh});
+        final data = response.data;
+        final refreshedToken = data['access'];
+        authenticationBloc.add(RefreshTokenSuccess(access: refreshedToken));
+        options.headers['Authorization'] = 'Bearer $refreshedToken';
+        dio.interceptors.requestLock.unlock();
+        dio.interceptors.responseLock.unlock();
+        await dio.request(options.path, options: options);
+      } catch (e) {
+        authenticationBloc.add(RefreshTokenFailure());
+      }
     }
   }
 }

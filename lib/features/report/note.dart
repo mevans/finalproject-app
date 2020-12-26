@@ -17,7 +17,7 @@ class Note extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 2,
+              height: 1,
               color: Theme.of(context).accentColor,
             ),
             Padding(

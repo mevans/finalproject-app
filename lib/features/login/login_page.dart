@@ -34,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff2f2f2),
       body: Center(
         child: Card(
           margin: EdgeInsets.symmetric(horizontal: 32),

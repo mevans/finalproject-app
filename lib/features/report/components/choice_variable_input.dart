@@ -18,18 +18,19 @@ class ChoiceVariableInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 8,
-      runSpacing: 8,
-      children: choiceType.choices
-          .map(
-            (choice) => ChoiceChip(
-              label: Text(choice.value),
-              selected: choiceResponse?.response == choice.id,
-              onSelected: (s) => onChoiceToggle(
-                ChoiceResponse(choiceType.variable, choice.id),
-              ),
+      runSpacing: -8,
+      children: choiceType.choices.map(
+        (choice) {
+          final selected = choiceResponse?.response == choice.id;
+          return ChoiceChip(
+            label: Text(choice.value, style: selected ? Theme.of(context).primaryTextTheme.button : null),
+            selected: selected,
+            onSelected: (s) => onChoiceToggle(
+              ChoiceResponse(choiceType.variable, choice.id),
             ),
-          )
-          .toList(),
+          );
+        },
+      ).toList(),
     );
   }
 }
