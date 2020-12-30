@@ -4,21 +4,20 @@ abstract class SignupEvent extends BlocEvent {
   SignupEvent([props]) : super(props: props);
 }
 
-class SignupChangeEvent extends SignupEvent {
-  final String token, email, password, password2;
+class SignupVerifyTokenEvent extends SignupEvent {
+  final String token;
 
-  SignupChangeEvent({
-    this.token,
+  SignupVerifyTokenEvent(this.token) : super([token]);
+}
+
+class SignupSubmitEvent extends SignupEvent {
+  final String email, password, password2;
+  final VoidCallback onSuccess;
+
+  SignupSubmitEvent(
     this.email,
     this.password,
     this.password2,
-  }) : super([token, email, password, password2]);
-}
-
-class SignupVerifyTokenEvent extends SignupEvent {}
-
-class SignupSubmitEvent extends SignupEvent {
-  final VoidCallback onSuccess;
-
-  SignupSubmitEvent(this.onSuccess) : super([onSuccess]);
+    this.onSuccess,
+  ) : super([email, password, password2, onSuccess]);
 }

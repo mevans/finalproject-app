@@ -4,14 +4,9 @@ abstract class LoginEvent extends BlocEvent {
   LoginEvent([props]) : super(props: props);
 }
 
-class LoginButtonPressed extends LoginEvent {
+class LoginSubmit extends LoginEvent {
   final String email;
   final String password;
 
-  LoginButtonPressed({
-    this.email,
-    this.password,
-  }) : super([email, password]);
+  LoginSubmit(this.email, this.password) : super([email, password]);
 }
-
-class LoginTogglePasswordVisibility extends LoginEvent {}

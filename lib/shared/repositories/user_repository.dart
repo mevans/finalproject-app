@@ -1,5 +1,6 @@
 import 'package:app/shared/models/auth_data.dart';
 import 'package:app/shared/models/patient.dart';
+import 'package:app/shared/models/valid_token.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 
@@ -30,12 +31,12 @@ class UserRepository {
         .then((response) => Patient.fromJson(response.data));
   }
 
-  Future<dynamic> verifySignupToken({
+  Future<ValidToken> verifySignupToken({
     @required String token,
   }) {
     return this.dio.post('auth/verify-token', data: {
       'token': token,
-    }).then((value) => value.data);
+    }).then((response) => ValidToken.fromJson(response.data));
   }
 
   Future<AuthData> register({

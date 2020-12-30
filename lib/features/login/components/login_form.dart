@@ -1,90 +1,66 @@
-import 'package:app/core/authentication/bloc/authentication_bloc.dart';
-import 'package:app/features/login/bloc/login_bloc.dart';
+import 'package:app/shared/components/password_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
-class LoginForm extends StatefulWidget {
-  final LoginBloc loginBloc;
-  final AuthenticationBloc authenticationBloc;
+class LoginForm extends StatelessWidget {
+  final bool submitting;
+  final Function(String email, String password) onSubmit;
+  final VoidCallback onSignup;
 
   const LoginForm({
     Key key,
-    this.loginBloc,
-    this.authenticationBloc,
+    this.submitting,
+    this.onSubmit,
+    this.onSignup,
   }) : super(key: key);
 
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
-  final _emailController = TextEditingController(text: 'testpatient@gmail.com');
-  final _passwordController = TextEditingController(text: 'Power12345');
-
-  LoginBloc get _loginBloc => widget.loginBloc;
-
-  _onLoginButtonPressed() {
-    _loginBloc.add(LoginButtonPressed(
-      email: _emailController.text,
-      password: _passwordController.text,
-    ));
-  }
-
-  _togglePasswordVisibility() {
-    _loginBloc.add(LoginTogglePasswordVisibility());
+  _onSubmit(FormGroup form) {
+    onSubmit(form.control('email').value, form.control('password').value);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-      cubit: _loginBloc,
-      builder: (ctx, state) {
-        return Form(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                "Login",
-                style: TextStyle(fontSize: 24),
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(labelText: "Email"),
-                controller: _emailController,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  suffixIcon: IconButton(
-                    icon: Icon(state.passwordVisible
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-                    onPressed: _togglePasswordVisibility,
-                  ),
-                ),
-                controller: _passwordController,
-                obscureText: !state.passwordVisible,
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _onLoginButtonPressed,
-                child: !state.submitting
-                    ? Text('Login')
-                    : CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      ),
-              ),
-              TextButton(
-                child: Text("Click here to accept an invite"),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/signup');
-                },
-              )
-            ],
+    return ReactiveFormBuilder(
+      form: () => FormGroup({
+        'email': FormControl(
+          validators: [Validators.required, Validators.email],
+        ),
+        'password': FormControl(
+          validators: [Validators.required],
+        )
+      }),
+      builder: (ctx, form, child) => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            "Login",
+            style: TextStyle(fontSize: 24),
           ),
-        );
-      },
+          SizedBox(height: 20),
+          ReactiveTextField(
+            formControlName: 'email',
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(hintText: "Email"),
+          ),
+          SizedBox(height: 20),
+          PasswordField(
+            formControlName: 'password',
+          ),
+          SizedBox(height: 20),
+          ReactiveFormConsumer(
+            builder: (ctx, form, child) => ElevatedButton(
+              child: Text("Log In"),
+              onPressed: form.valid ? () => _onSubmit(form) : null,
+            ),
+          ),
+          TextButton(
+            child: Text("Click here to accept an invite"),
+            onPressed: onSignup,
+          ),
+        ],
+      ),
     );
   }
 }

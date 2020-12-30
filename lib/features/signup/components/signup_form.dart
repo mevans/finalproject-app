@@ -1,52 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class SignupForm extends StatelessWidget {
-  final String email, password, password2;
-  final ValueChanged<String> onEmailChanged,
-      onPasswordChanged,
-      onPassword2Changed;
-  final VoidCallback onSignup;
+  final String name;
+  final Function(String email, String password, String password2) onSubmit;
 
   const SignupForm({
     Key key,
-    this.email,
-    this.password,
-    this.password2,
-    this.onSignup,
-    this.onEmailChanged,
-    this.onPasswordChanged,
-    this.onPassword2Changed,
+    this.name,
+    this.onSubmit,
   }) : super(key: key);
+
+  _onSubmit(FormGroup form) {
+    onSubmit(
+      form.control('email').value,
+      form.control('password').value,
+      form.control('password2').value,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        TextFormField(
-          initialValue: email,
-          onChanged: onEmailChanged,
-          decoration: InputDecoration(hintText: "Email"),
-        ),
-        SizedBox(height: 20),
-        TextFormField(
-          initialValue: password,
-          onChanged: onPasswordChanged,
-          decoration: InputDecoration(hintText: "Password"),
-        ),
-        SizedBox(height: 20),
-        TextFormField(
-          initialValue: password2,
-          onChanged: onPassword2Changed,
-          decoration: InputDecoration(hintText: "Confirm Password"),
-        ),
-        SizedBox(height: 20),
-        ElevatedButton(
-          child: Text("Register"),
-          onPressed: onSignup,
-        ),
-      ],
+    return ReactiveFormBuilder(
+      form: () => FormGroup({
+        'email':
+            FormControl(validators: [Validators.required, Validators.email]),
+        'password': FormControl(validators: [Validators.required]),
+        'password2': FormControl(validators: [Validators.required]),
+      }),
+      builder: (ctx, form, child) => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            "Hi there $name, create some account details to complete the registration",
+          ),
+          SizedBox(height: 20),
+          ReactiveTextField(
+            formControlName: 'email',
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(hintText: "Email"),
+          ),
+          SizedBox(height: 20),
+          ReactiveTextField(
+            formControlName: 'password',
+            decoration: InputDecoration(hintText: "Password"),
+          ),
+          SizedBox(height: 20),
+          ReactiveTextField(
+            formControlName: 'password2',
+            decoration: InputDecoration(hintText: "Confirm Password"),
+          ),
+          SizedBox(height: 20),
+          ReactiveFormConsumer(
+            builder: (ctx, form, child) => ElevatedButton(
+              child: Text("Register"),
+              onPressed: form.valid ? () => _onSubmit(form) : null,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

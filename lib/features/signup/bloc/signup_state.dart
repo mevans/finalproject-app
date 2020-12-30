@@ -1,38 +1,26 @@
 part of 'signup_bloc.dart';
 
 class SignupState extends BlocState {
-  final String token, email, password, password2;
-  final bool tokenVerified;
+  final String verifiedToken;
+  final String firstName;
 
   SignupState({
-    @required this.token,
-    @required this.email,
-    @required this.password,
-    @required this.password2,
-    @required this.tokenVerified,
-  }) : super([token, email, password, password2, tokenVerified]);
+    this.verifiedToken,
+    this.firstName,
+  }) : super([verifiedToken, firstName]);
 
   static final initial = SignupState(
-    token: "",
-    email: "",
-    password: "",
-    password2: "",
-    tokenVerified: false,
+    verifiedToken: null,
+    firstName: null,
   );
 
   SignupState copyWith({
-    String token,
-    String email,
-    String password,
-    String password2,
-    bool tokenVerified,
-    bool tokenInvalid,
+    Nullable<String> verifiedToken,
+    String firstName,
   }) =>
       SignupState(
-        token: token ?? this.token,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        password2: password2 ?? this.password2,
-        tokenVerified: tokenVerified ?? this.tokenVerified,
+        verifiedToken:
+            verifiedToken == null ? this.verifiedToken : verifiedToken.value,
+        firstName: firstName ?? this.firstName,
       );
 }

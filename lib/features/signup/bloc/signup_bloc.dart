@@ -1,13 +1,12 @@
 import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
+import 'package:app/shared/models/nullable.dart';
 import 'package:app/shared/repositories/user_repository.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'signup_event.dart';
-
 part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
@@ -21,30 +20,26 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
   @override
   Stream<SignupState> mapEventToState(SignupEvent event) async* {
-    if (event is SignupChangeEvent) {
-      yield state.copyWith(
-        token: event.token,
-        email: event.email,
-        password: event.password,
-        password2: event.password2,
-      );
-    }
     if (event is SignupVerifyTokenEvent) {
-      final token = state.token;
+      final token = event.token;
       try {
-        await userRepository.verifySignupToken(token: token);
-        yield state.copyWith(tokenVerified: true);
+        final validToken = await userRepository.verifySignupToken(token: token);
+        yield state.copyWith(
+          verifiedToken: Nullable(token),
+          firstName: validToken.firstName,
+        );
       } catch (e) {
-        yield state.copyWith(tokenInvalid: true);
+        yield state.copyWith(verifiedToken: Nullable(null));
       }
     }
     if (event is SignupSubmitEvent) {
       try {
         final authData = await userRepository.register(
-            email: state.email,
-            password: state.password,
-            password2: state.password2,
-            token: state.token);
+          email: event.email,
+          password: event.password,
+          password2: event.password2,
+          token: state.verifiedToken,
+        );
 
         authenticationBloc.add(LoggedIn(authData: authData));
 
