@@ -1,4 +1,4 @@
-import 'package:app/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';

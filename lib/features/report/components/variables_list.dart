@@ -1,9 +1,9 @@
 import 'package:app/features/report/components/range_variable_input.dart';
 import 'package:app/features/report/components/variable_input.dart';
-import 'package:app/models/choice_response.dart';
-import 'package:app/models/range_response.dart';
-import 'package:app/models/variable.dart';
-import 'package:app/models/variable_instance.dart';
+import 'package:app/shared/models/choice_response.dart';
+import 'package:app/shared/models/range_response.dart';
+import 'package:app/shared/models/variable.dart';
+import 'package:app/shared/models/variable_instance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

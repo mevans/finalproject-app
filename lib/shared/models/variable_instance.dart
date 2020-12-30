@@ -1,4 +1,4 @@
-import 'package:app/models/variable.dart';
+import 'package:app/shared/models/variable.dart';
 import 'package:equatable/equatable.dart';
 
 class VariableInstance extends Equatable {

@@ -1,4 +1,4 @@
-import 'package:app/models/choice.dart';
+import 'package:app/shared/models/choice.dart';
 import 'package:equatable/equatable.dart';
 
 class ChoiceType extends Equatable {

@@ -1,6 +1,6 @@
-import 'package:app/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/features/login/bloc/login_bloc.dart';
-import 'package:app/repositories/user_repository.dart';
+import 'package:app/shared/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

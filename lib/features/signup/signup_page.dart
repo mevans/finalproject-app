@@ -1,9 +1,9 @@
-import 'package:app/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/features/report/report.dart';
 import 'package:app/features/signup/bloc/signup_bloc.dart';
 import 'package:app/features/signup/components/signup_form.dart';
 import 'package:app/features/signup/components/verify_token_form.dart';
-import 'package:app/repositories/user_repository.dart';
+import 'package:app/shared/repositories/user_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

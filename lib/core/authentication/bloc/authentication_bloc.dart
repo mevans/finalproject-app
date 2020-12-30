@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:app/models/auth_data.dart';
-import 'package:app/models/bloc_event.dart';
-import 'package:app/models/bloc_state.dart';
-import 'package:app/models/nullable.dart';
-import 'package:app/models/patient.dart';
-import 'package:app/repositories/token_repository.dart';
-import 'package:app/repositories/user_repository.dart';
+import 'package:app/shared/models/auth_data.dart';
+import 'package:app/shared/models/bloc_event.dart';
+import 'package:app/shared/models/bloc_state.dart';
+import 'package:app/shared/models/nullable.dart';
+import 'package:app/shared/models/patient.dart';
+import 'package:app/shared/repositories/token_repository.dart';
+import 'package:app/shared/repositories/user_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';

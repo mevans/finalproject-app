@@ -1,5 +1,5 @@
-import 'package:app/models/choice_response.dart';
-import 'package:app/models/range_response.dart';
+import 'package:app/shared/models/choice_response.dart';
+import 'package:app/shared/models/range_response.dart';
 import 'package:equatable/equatable.dart';
 
 class Report extends Equatable {

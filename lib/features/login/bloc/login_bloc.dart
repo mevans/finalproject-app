@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:app/authentication/bloc/authentication_bloc.dart';
-import 'package:app/models/bloc_event.dart';
-import 'package:app/models/bloc_state.dart';
-import 'package:app/repositories/user_repository.dart';
+import 'package:app/core/authentication/bloc/authentication_bloc.dart';
+import 'package:app/shared/models/bloc_event.dart';
+import 'package:app/shared/models/bloc_state.dart';
+import 'package:app/shared/repositories/user_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';

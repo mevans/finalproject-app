@@ -1,11 +1,11 @@
-import 'package:app/authentication/authentication_interceptor.dart';
-import 'package:app/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/authentication/authentication_interceptor.dart';
+import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/features/login/login_page.dart';
 import 'package:app/features/report/report.dart';
 import 'package:app/features/signup/signup_page.dart';
 import 'package:app/features/splash/splash.dart';
-import 'package:app/repositories/token_repository.dart';
-import 'package:app/repositories/user_repository.dart';
+import 'package:app/shared/repositories/token_repository.dart';
+import 'package:app/shared/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

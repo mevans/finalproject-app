@@ -1,7 +1,7 @@
-import 'package:app/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/features/report/bloc/report_bloc.dart';
 import 'package:app/features/report/components/variables_list.dart';
-import 'package:app/repositories/variable_repository.dart';
+import 'package:app/shared/repositories/variable_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

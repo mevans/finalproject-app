@@ -1,5 +1,5 @@
-import 'package:app/models/auth_data.dart';
-import 'package:app/models/patient.dart';
+import 'package:app/shared/models/auth_data.dart';
+import 'package:app/shared/models/patient.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 

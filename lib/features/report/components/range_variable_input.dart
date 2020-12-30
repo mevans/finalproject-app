@@ -1,5 +1,5 @@
-import 'package:app/models/range_response.dart';
-import 'package:app/models/range_type.dart';
+import 'package:app/shared/models/range_response.dart';
+import 'package:app/shared/models/range_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 

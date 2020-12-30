@@ -1,5 +1,5 @@
-import 'package:app/models/choice_response.dart';
-import 'package:app/models/choice_type.dart';
+import 'package:app/shared/models/choice_response.dart';
+import 'package:app/shared/models/choice_type.dart';
 import 'package:flutter/material.dart';
 
 class ChoiceVariableInput extends StatelessWidget {

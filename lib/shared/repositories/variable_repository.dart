@@ -1,5 +1,5 @@
-import 'package:app/models/report.dart';
-import 'package:app/models/variable_instance.dart';
+import 'package:app/shared/models/report.dart';
+import 'package:app/shared/models/variable_instance.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 

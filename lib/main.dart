@@ -1,8 +1,8 @@
 import 'package:app/app.dart';
-import 'package:app/authentication/authentication_interceptor.dart';
-import 'package:app/repositories/token_repository.dart';
-import 'package:app/repositories/user_repository.dart';
-import 'package:app/repositories/variable_repository.dart';
+import 'package:app/core/authentication/authentication_interceptor.dart';
+import 'package:app/shared/repositories/token_repository.dart';
+import 'package:app/shared/repositories/user_repository.dart';
+import 'package:app/shared/repositories/variable_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
