@@ -6,7 +6,9 @@ import 'package:fresh_dio/fresh_dio.dart';
 class UserRepository {
   final Dio dio;
 
-  UserRepository({this.dio});
+  UserRepository({
+    @required this.dio,
+  });
 
   Future<AuthData> authenticate({
     @required String email,
@@ -49,6 +51,4 @@ class UserRepository {
       'token': token,
     }).then((response) => AuthData.fromJson(response.data));
   }
-
-
 }

@@ -1,4 +1,6 @@
-import 'package:app/authentication/authentication_bloc.dart';
+import 'package:app/authentication/bloc/authentication_bloc.dart';
+import 'package:app/models/bloc_event.dart';
+import 'package:app/models/bloc_state.dart';
 import 'package:app/repositories/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     }
     if (event is SignupSubmitEvent) {
       try {
-        final authData = await userRepository.register(email: state.email, password: state.password, password2: state.password2, token: state.token);
+        final authData = await userRepository.register(
+            email: state.email,
+            password: state.password,
+            password2: state.password2,
+            token: state.token);
 
         authenticationBloc.add(LoggedIn(authData: authData));
 

@@ -1,6 +1,5 @@
-import 'package:app/authentication/authentication_bloc.dart';
+import 'package:app/authentication/bloc/authentication_bloc.dart';
 import 'package:app/features/login/bloc/login_bloc.dart';
-import 'package:app/features/signup/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,8 +18,8 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _emailController = TextEditingController(text: 'patient@gmail.com');
-  final _passwordController = TextEditingController(text: 'password');
+  final _emailController = TextEditingController(text: 'testpatient@gmail.com');
+  final _passwordController = TextEditingController(text: 'Power12345');
 
   LoginBloc get _loginBloc => widget.loginBloc;
 
@@ -79,8 +78,7 @@ class _LoginFormState extends State<LoginForm> {
               TextButton(
                 child: Text("Click here to accept an invite"),
                 onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (ctx) => SignupPage()));
+                  Navigator.pushNamed(context, '/signup');
                 },
               )
             ],

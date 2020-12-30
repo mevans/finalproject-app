@@ -1,4 +1,4 @@
-import 'package:app/authentication/authentication_bloc.dart';
+import 'package:app/authentication/bloc/authentication_bloc.dart';
 import 'package:app/features/report/bloc/report_bloc.dart';
 import 'package:app/features/report/components/variables_list.dart';
 import 'package:app/repositories/variable_repository.dart';

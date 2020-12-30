@@ -1,3 +1,5 @@
+import 'package:app/models/bloc_event.dart';
+import 'package:app/models/bloc_state.dart';
 import 'package:app/models/choice_response.dart';
 import 'package:app/models/range_response.dart';
 import 'package:app/models/report.dart';
@@ -79,7 +81,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       yield state.copyWith(
         submittingReport: true,
       );
-      await variableRepository.submitReport(report);
+      await variableRepository.submitReport(report: report);
       yield state.copyWith(
         submittingReport: false,
         rangeResponses: [],

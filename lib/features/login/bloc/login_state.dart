@@ -1,18 +1,15 @@
 part of 'login_bloc.dart';
 
-class LoginState extends Equatable {
+class LoginState extends BlocState<LoginState> {
   final bool submitting;
   final bool passwordVisible;
 
-  const LoginState({
+  LoginState({
     @required this.submitting,
     @required this.passwordVisible,
-  });
+  }) : super([submitting, passwordVisible]);
 
-  @override
-  List<Object> get props => [submitting, passwordVisible];
-
-  static const initial = LoginState(
+  static final initial = LoginState(
     submitting: false,
     passwordVisible: false,
   );

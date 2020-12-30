@@ -1,6 +1,6 @@
 part of 'signup_bloc.dart';
 
-class SignupState extends Equatable {
+class SignupState extends BlocState {
   final String token, email, password, password2;
   final bool tokenVerified;
 
@@ -10,11 +10,9 @@ class SignupState extends Equatable {
     @required this.password,
     @required this.password2,
     @required this.tokenVerified,
-  });
+  }) : super([token, email, password, password2, tokenVerified]);
 
-  List<Object> get props => [token, email, password, password2, tokenVerified];
-
-  static SignupState initial = SignupState(
+  static final initial = SignupState(
     token: "",
     email: "",
     password: "",

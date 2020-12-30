@@ -1,6 +1,6 @@
 part of 'report_bloc.dart';
 
-class ReportState extends Equatable {
+class ReportState extends BlocState {
   final bool initialising;
   final List<VariableInstance> variables;
   final List<int> openPanels;
@@ -17,20 +17,17 @@ class ReportState extends Equatable {
     @required this.rangeResponses,
     @required this.submittingReport,
     @required this.note,
-  });
+  }) : super([
+          initialising,
+          variables,
+          openPanels,
+          choiceResponses,
+          rangeResponses,
+          submittingReport,
+          note,
+        ]);
 
-  @override
-  List<Object> get props => [
-        initialising,
-        variables,
-        openPanels,
-        choiceResponses,
-        rangeResponses,
-        submittingReport,
-        note,
-      ];
-
-  static ReportState initial = ReportState(
+  static final initial = ReportState(
     initialising: true,
     variables: [],
     openPanels: [],

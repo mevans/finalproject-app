@@ -1,4 +1,4 @@
-import 'package:app/authentication/authentication_bloc.dart';
+import 'package:app/authentication/bloc/authentication_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';
@@ -12,7 +12,9 @@ class AuthenticationInterceptor extends Interceptor {
   AuthenticationInterceptor({
     @required this.dio,
     @required this.tokenDio,
-  });
+  }) {
+    dio.interceptors.add(this);
+  }
 
   void initialise(AuthenticationBloc authenticationBloc) {
     this.authenticationBloc = authenticationBloc;

@@ -1,11 +1,14 @@
 import 'package:app/models/report.dart';
 import 'package:app/models/variable_instance.dart';
+import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 
 class VariableRepository {
   final Dio dio;
 
-  VariableRepository({this.dio});
+  VariableRepository({
+    @required this.dio,
+  });
 
   Future<List<VariableInstance>> getVariables() {
     return this.dio.get('variables?expand=~all').then((response) {
@@ -14,7 +17,9 @@ class VariableRepository {
     });
   }
 
-  Future<dynamic> submitReport(Report report) {
+  Future<void> submitReport({
+    @required Report report,
+  }) {
     return this.dio.post('report', data: report.toJson());
   }
 }

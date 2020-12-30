@@ -1,8 +1,7 @@
 part of 'login_bloc.dart';
 
-abstract class LoginEvent extends Equatable {
-  @override
-  List<Object> get props => [];
+abstract class LoginEvent extends BlocEvent {
+  LoginEvent([props]) : super(props: props);
 }
 
 class LoginButtonPressed extends LoginEvent {
@@ -12,10 +11,7 @@ class LoginButtonPressed extends LoginEvent {
   LoginButtonPressed({
     this.email,
     this.password,
-  });
-
-  @override
-  List<Object> get props => [email, password];
+  }) : super([email, password]);
 }
 
 class LoginTogglePasswordVisibility extends LoginEvent {}

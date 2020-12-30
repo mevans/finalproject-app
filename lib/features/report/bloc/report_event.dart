@@ -1,8 +1,7 @@
 part of 'report_bloc.dart';
 
-abstract class ReportEvent extends Equatable {
-  @override
-  List<Object> get props => [];
+abstract class ReportEvent extends BlocEvent {
+  ReportEvent([props]) : super(props: props);
 }
 
 class ReportEnterPageEvent extends ReportEvent {}
@@ -12,17 +11,13 @@ class ReportSubmitReportEvent extends ReportEvent {}
 class ReportTogglePanelExpansion extends ReportEvent {
   final int id;
 
-  ReportTogglePanelExpansion(this.id);
-
-  List<Object> get props => [id];
+  ReportTogglePanelExpansion(this.id) : super([id]);
 }
 
 abstract class ReportResponse<T extends Response> extends ReportEvent {
   final T response;
 
-  ReportResponse(this.response);
-
-  List<Object> get props => [response];
+  ReportResponse(this.response) : super([response]);
 }
 
 class ReportChoiceResponseToggle extends ReportResponse<ChoiceResponse> {
@@ -36,15 +31,11 @@ class ReportRangeResponse extends ReportResponse<RangeResponse> {
 class ReportRangeClear extends ReportEvent {
   final int id;
 
-  ReportRangeClear(this.id);
-
-  List<Object> get props => [];
+  ReportRangeClear(this.id) : super([id]);
 }
 
 class ReportUpdateNote extends ReportEvent {
   final String note;
 
-  ReportUpdateNote(this.note);
-
-  List<Object> get props => [note];
+  ReportUpdateNote(this.note) : super([note]);
 }

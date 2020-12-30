@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:app/models/auth_data.dart';
+import 'package:app/models/bloc_event.dart';
+import 'package:app/models/bloc_state.dart';
 import 'package:app/models/nullable.dart';
 import 'package:app/models/patient.dart';
 import 'package:app/repositories/token_repository.dart';
@@ -11,7 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 import 'package:meta/meta.dart';
 
-import 'authentication_interceptor.dart';
+import '../authentication_interceptor.dart';
 
 part 'authentication_event.dart';
 
@@ -22,11 +24,13 @@ class AuthenticationBloc
   final TokenRepository tokenRepository;
   final UserRepository userRepository;
   final AuthenticationInterceptor authenticationInterceptor;
+  final GlobalKey<NavigatorState> navigator;
 
   AuthenticationBloc({
     @required this.userRepository,
     @required this.tokenRepository,
     @required this.authenticationInterceptor,
+    @required this.navigator,
   }) : super(AuthenticationState.initial) {
     this.authenticationInterceptor.initialise(this);
   }
@@ -46,6 +50,7 @@ class AuthenticationBloc
         yield state.copyWith(
           authData: Nullable(null),
           status: AuthenticationStatus.unauthenticated,
+          initialising: false,
         );
       }
     }
@@ -93,6 +98,13 @@ class AuthenticationBloc
     if (transition.currentState.status != AuthenticationStatus.authenticated &&
         transition.nextState.status == AuthenticationStatus.authenticated) {
       add(GetUser());
+      navigator.currentState
+          .pushNamedAndRemoveUntil('/report', (route) => false);
+    }
+    if (transition.currentState.status != AuthenticationStatus.unauthenticated &&
+        transition.nextState.status == AuthenticationStatus.unauthenticated) {
+      navigator.currentState
+          .pushNamedAndRemoveUntil('/login', (route) => false);
     }
     super.onTransition(transition);
   }

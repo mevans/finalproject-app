@@ -1,7 +1,7 @@
 part of 'signup_bloc.dart';
 
-abstract class SignupEvent extends Equatable {
-  List<Object> get props => [];
+abstract class SignupEvent extends BlocEvent {
+  SignupEvent([props]) : super(props: props);
 }
 
 class SignupChangeEvent extends SignupEvent {
@@ -12,9 +12,7 @@ class SignupChangeEvent extends SignupEvent {
     this.email,
     this.password,
     this.password2,
-  });
-
-  List<Object> get props => [token, email, password, password2];
+  }) : super([token, email, password, password2]);
 }
 
 class SignupVerifyTokenEvent extends SignupEvent {}
@@ -22,7 +20,5 @@ class SignupVerifyTokenEvent extends SignupEvent {}
 class SignupSubmitEvent extends SignupEvent {
   final VoidCallback onSuccess;
 
-  SignupSubmitEvent(this.onSuccess);
-
-  List<Object> get props => [onSuccess];
+  SignupSubmitEvent(this.onSuccess) : super([onSuccess]);
 }

@@ -1,22 +1,19 @@
 part of 'authentication_bloc.dart';
 
-class AuthenticationState extends Equatable {
+class AuthenticationState extends BlocState {
   final AuthenticationStatus status;
   final AuthData authData;
   final Patient user;
   final bool initialising;
 
-  const AuthenticationState({
+  AuthenticationState({
     @required this.authData,
     @required this.status,
     @required this.user,
     @required this.initialising,
-  });
+  }) : super([status, authData, user, initialising]);
 
-  @override
-  List<Object> get props => [status, authData, user];
-
-  static const initial = AuthenticationState(
+  static final initial = AuthenticationState(
     authData: null,
     status: AuthenticationStatus.initial,
     user: null,

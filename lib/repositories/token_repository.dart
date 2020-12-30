@@ -2,13 +2,13 @@ import 'package:app/models/auth_data.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 
-class TokenRepository implements TokenStorage<AuthData>{
+class TokenRepository implements TokenStorage<AuthData> {
   final FlutterSecureStorage secureStorage;
 
   final String accessTokenKey = 'access-token';
   final String refreshTokenKey = 'refresh-token';
 
-  TokenRepository({this.secureStorage});
+  TokenRepository() : secureStorage = FlutterSecureStorage();
 
   @override
   Future<void> delete() async {
