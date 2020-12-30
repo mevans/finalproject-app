@@ -62,6 +62,7 @@ class AuthenticationBloc
       await tokenRepository.delete();
       yield state.copyWith(
         authData: Nullable(null),
+        user: Nullable(null),
         status: AuthenticationStatus.unauthenticated,
       );
     }

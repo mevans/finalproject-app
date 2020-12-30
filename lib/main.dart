@@ -31,10 +31,10 @@ class LoggerBloc extends BlocObserver {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   EquatableConfig.stringify = true;
-  // Bloc.observer = LoggerBloc();
+  Bloc.observer = LoggerBloc();
   final secureStorage = FlutterSecureStorage();
   final tokenRepository = TokenRepository(secureStorage: secureStorage);
-  final url = 'http://192.168.1.111:8000/patient/';
+  final url = 'http://192.168.1.112:8000/patient/';
   final dio = Dio()..options.baseUrl = url;
   final tokenDio = Dio()..options.baseUrl = url;
   final authInterceptor = AuthenticationInterceptor(
@@ -42,16 +42,17 @@ void main() async {
     tokenDio: tokenDio,
   );
   dio.interceptors.add(authInterceptor);
+  final userRepo = UserRepository(dio: dio);
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<VariableRepository>(
             create: (ctx) => VariableRepository(dio: dio)),
+        RepositoryProvider<UserRepository>(
+            create: (ctx) => userRepo),
       ],
       child: App(
-        userRepository: UserRepository(
-          dio: dio,
-        ),
+        userRepository: userRepo,
         tokenRepository: tokenRepository,
         authenticationInterceptor: authInterceptor,
       ),
@@ -113,9 +114,7 @@ class _AppState extends State<App> {
                 }
                 return ReportPage();
               case AuthenticationStatus.unauthenticated:
-                return LoginPage(
-                  userRepository: userRepository,
-                );
+                return LoginPage();
             }
             return Container();
           },

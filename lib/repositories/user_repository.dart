@@ -27,4 +27,28 @@ class UserRepository {
         .get('user')
         .then((response) => Patient.fromJson(response.data));
   }
+
+  Future<dynamic> verifySignupToken({
+    @required String token,
+  }) {
+    return this.dio.post('auth/verify-token', data: {
+      'token': token,
+    }).then((value) => value.data);
+  }
+
+  Future<AuthData> register({
+    @required String email,
+    @required String password,
+    @required String password2,
+    @required String token,
+  }) {
+    return this.dio.post('auth/register', data: {
+      'email': email,
+      'password': password,
+      'password2': password2,
+      'token': token,
+    }).then((response) => AuthData.fromJson(response.data));
+  }
+
+
 }

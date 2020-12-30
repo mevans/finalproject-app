@@ -7,10 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'components/login_form.dart';
 
 class LoginPage extends StatefulWidget {
-  final UserRepository userRepository;
-
-  const LoginPage({Key key, this.userRepository}) : super(key: key);
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -19,13 +15,11 @@ class _LoginPageState extends State<LoginPage> {
   LoginBloc _loginBloc;
   AuthenticationBloc _authenticationBloc;
 
-  UserRepository get _userRepository => widget.userRepository;
-
   @override
   void initState() {
     _authenticationBloc = context.read<AuthenticationBloc>();
     _loginBloc = LoginBloc(
-      userRepository: _userRepository,
+      userRepository: context.read<UserRepository>(),
       authenticationBloc: _authenticationBloc,
     );
     super.initState();
