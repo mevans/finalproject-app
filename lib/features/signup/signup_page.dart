@@ -1,5 +1,4 @@
 import 'package:app/core/root_bloc/root_bloc.dart';
-import 'package:app/features/report/report.dart';
 import 'package:app/features/signup/bloc/signup_bloc.dart';
 import 'package:app/features/signup/components/signup_form.dart';
 import 'package:app/features/signup/components/verify_token_form.dart';
@@ -41,11 +40,10 @@ class _SignupPageState extends State<SignupPage> {
                   name: state.firstName,
                   onSubmit: (email, password, password2) => _signupBloc.add(
                     SignupSubmitEvent(
-                        email,
-                        password,
-                        password2,
-                        () => Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (ctx) => ReportPage()))),
+                      email,
+                      password,
+                      password2,
+                    ),
                   ),
                 );
         },

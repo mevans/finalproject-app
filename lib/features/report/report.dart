@@ -1,4 +1,5 @@
 import 'package:app/core/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/navigation/bloc/navigation_bloc.dart';
 import 'package:app/features/report/bloc/report_bloc.dart';
 import 'package:app/features/report/components/variables_list.dart';
 import 'package:app/shared/repositories/variable_repository.dart';
@@ -15,12 +16,14 @@ class ReportPage extends StatefulWidget {
 
 class _ReportPageState extends State<ReportPage> {
   ReportBloc _reportBloc;
+  NavigationBloc _navigationBloc;
 
   @override
   void initState() {
     _reportBloc = ReportBloc(
       variableRepository: context.read<VariableRepository>(),
     )..add(ReportEnterPageEvent());
+    _navigationBloc = context.read<NavigationBloc>();
     super.initState();
   }
 
@@ -46,7 +49,7 @@ class _ReportPageState extends State<ReportPage> {
               leading: IconButton(icon: Icon(Icons.today), onPressed: () {}),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.more_vert),
+                  icon: Icon(Icons.settings),
                   onPressed: () {
                     context.read<AuthenticationBloc>().add(LoggedOut());
                   },
@@ -126,7 +129,7 @@ class _ReportPageState extends State<ReportPage> {
                       initialValue: state.note,
                       onSubmit: (note) {
                         _reportBloc.add(ReportUpdateNote(note));
-                        Navigator.pop(context);
+                        _navigationBloc.add(NavigationPop());
                       },
                     ),
                   );

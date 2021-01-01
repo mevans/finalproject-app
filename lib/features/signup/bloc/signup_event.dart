@@ -12,12 +12,10 @@ class SignupVerifyTokenEvent extends SignupEvent {
 
 class SignupSubmitEvent extends SignupEvent {
   final String email, password, password2;
-  final VoidCallback onSuccess;
 
   SignupSubmitEvent(
     this.email,
     this.password,
     this.password2,
-    this.onSuccess,
-  ) : super([email, password, password2, onSuccess]);
+  ) : super([email, password, password2]);
 }

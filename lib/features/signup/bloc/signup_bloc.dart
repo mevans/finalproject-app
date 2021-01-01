@@ -3,7 +3,6 @@ import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
 import 'package:app/shared/models/nullable.dart';
 import 'package:app/shared/repositories/user_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'signup_event.dart';
@@ -42,8 +41,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         );
 
         rootBloc.add(LoggedInEvent(authData));
-
-        event.onSuccess();
       } catch (e) {
         print(e);
       }

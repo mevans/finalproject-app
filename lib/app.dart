@@ -1,12 +1,10 @@
 import 'package:app/core/authentication/authentication_interceptor.dart';
 import 'package:app/core/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/navigation/bloc/navigation_bloc.dart';
+import 'package:app/core/navigation/constants/routes.dart';
 import 'package:app/core/notifications/bloc/notification_bloc.dart';
 import 'package:app/core/notifications/token_interceptor.dart';
 import 'package:app/core/root_bloc/root_bloc.dart';
-import 'package:app/features/login/login_page.dart';
-import 'package:app/features/report/report.dart';
-import 'package:app/features/signup/signup_page.dart';
-import 'package:app/features/splash/splash.dart';
 import 'package:app/shared/repositories/token_repository.dart';
 import 'package:app/shared/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -31,14 +29,20 @@ class _AppState extends State<App> {
             userRepository: ctx.read<UserRepository>(),
             tokenRepository: ctx.read<TokenRepository>(),
             authenticationInterceptor: ctx.read<AuthenticationInterceptor>(),
-            navigator: navigator,
           )..add(AppStarted()),
         ),
-        BlocProvider(
+        BlocProvider<NotificationBloc>(
           lazy: false,
           create: (ctx) => NotificationBloc(
             rootBloc: ctx.read<RootBloc>(),
             tokenInterceptor: ctx.read<TokenInterceptor>(),
+          ),
+        ),
+        BlocProvider<NavigationBloc>(
+          lazy: false,
+          create: (ctx) => NavigationBloc(
+            rootBloc: ctx.read<RootBloc>(),
+            navigator: navigator,
           ),
         ),
       ],
@@ -48,12 +52,7 @@ class _AppState extends State<App> {
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
-        routes: {
-          '/': (ctx) => SplashPage(),
-          '/login': (ctx) => LoginPage(),
-          '/report': (ctx) => ReportPage(),
-          '/signup': (ctx) => SignupPage(),
-        },
+        routes: Routes.routes,
       ),
     );
   }

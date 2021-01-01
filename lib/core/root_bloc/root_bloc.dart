@@ -16,7 +16,7 @@ class RootBloc extends Bloc<RootEvent, RootState> {
 
   addEventListener<T extends RootEvent>(Type event, ValueChanged<T> onEvent) {
     final eventType = event.toString();
-    final currentListeners = listeners[event.runtimeType];
+    final currentListeners = listeners[eventType];
     listeners[eventType] = currentListeners == null
         ? [onEvent]
         : [...listeners[eventType], onEvent];

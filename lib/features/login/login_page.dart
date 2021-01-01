@@ -1,3 +1,5 @@
+import 'package:app/core/navigation/bloc/navigation_bloc.dart';
+import 'package:app/core/navigation/constants/routes.dart';
 import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/features/login/bloc/login_bloc.dart';
 import 'package:app/shared/components/auth_page.dart';
@@ -14,6 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   LoginBloc _loginBloc;
+  NavigationBloc _navigationBloc;
 
   @override
   void initState() {
@@ -21,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       rootBloc: context.read<RootBloc>(),
       userRepository: context.read<UserRepository>(),
     );
+    _navigationBloc = context.read<NavigationBloc>();
     super.initState();
   }
 
@@ -33,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
           onSubmit: (email, password) => _loginBloc.add(
             LoginSubmit(email, password),
           ),
-          onSignup: () => Navigator.pushNamed(context, '/signup'),
+          onSignup: () => _navigationBloc.add(NavigationPush(Routes.signup)),
         ),
       ),
     );

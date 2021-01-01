@@ -32,7 +32,12 @@ void main() async {
   EquatableConfig.stringify = true;
   // Bloc.observer = LoggerBloc();
   final url = 'http://192.168.1.116:8000/patient/';
-  final dio = Dio()..options.baseUrl = url;
+  final dio = Dio()
+    ..options.baseUrl = url
+    ..interceptors.add(InterceptorsWrapper(
+      onRequest: (r) =>
+          Future.delayed(Duration(milliseconds: 300)).then((d) => r),
+    ));
   final tokenDio = Dio()..options.baseUrl = url;
   runApp(
     BlocProvider<RootBloc>(

@@ -19,6 +19,7 @@ class UserRepository {
       'email': email,
       'password': password,
     }).then((response) {
+      print(response);
       final data = response.data;
       return AuthData(access: data['access'], refresh: data['refresh']);
     });

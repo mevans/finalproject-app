@@ -16,6 +16,7 @@ import 'package:meta/meta.dart';
 import '../authentication_interceptor.dart';
 
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 class AuthenticationBloc
@@ -24,14 +25,12 @@ class AuthenticationBloc
   final TokenRepository tokenRepository;
   final UserRepository userRepository;
   final AuthenticationInterceptor authenticationInterceptor;
-  final GlobalKey<NavigatorState> navigator;
 
   AuthenticationBloc({
     @required this.rootBloc,
     @required this.userRepository,
     @required this.tokenRepository,
     @required this.authenticationInterceptor,
-    @required this.navigator,
   }) : super(AuthenticationState.initial) {
     this.authenticationInterceptor.initialise(this);
     this.rootBloc.addEventListener(
@@ -97,21 +96,23 @@ class AuthenticationBloc
 
   @override
   void onTransition(
-      Transition<AuthenticationEvent, AuthenticationState> transition) {
-    if (transition.currentState.status != AuthenticationStatus.authenticated &&
-        transition.nextState.status == AuthenticationStatus.authenticated) {
+    Transition<AuthenticationEvent, AuthenticationState> transition,
+  ) {
+    super.onTransition(transition);
+    if (statusTransitions(transition, AuthenticationStatus.authenticated)) {
       add(GetUser());
       rootBloc.add(AuthenticatedEvent());
-      navigator.currentState
-          .pushNamedAndRemoveUntil('/report', (route) => false);
     }
-    if (transition.currentState.status !=
-            AuthenticationStatus.unauthenticated &&
-        transition.nextState.status == AuthenticationStatus.unauthenticated) {
+    if (statusTransitions(transition, AuthenticationStatus.unauthenticated)) {
       rootBloc.add(UnauthenticatedEvent());
-      navigator.currentState
-          .pushNamedAndRemoveUntil('/login', (route) => false);
     }
-    super.onTransition(transition);
+  }
+
+  bool statusTransitions(
+    Transition<AuthenticationEvent, AuthenticationState> transition,
+    AuthenticationStatus status,
+  ) {
+    return transition.currentState.status != status &&
+        transition.nextState.status == status;
   }
 }
