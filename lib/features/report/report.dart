@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'note.dart';
+import 'components/note.dart';
 
 class ReportPage extends StatefulWidget {
   @override
@@ -15,14 +15,12 @@ class ReportPage extends StatefulWidget {
 
 class _ReportPageState extends State<ReportPage> {
   ReportBloc _reportBloc;
-  TextEditingController _noteController;
 
   @override
   void initState() {
-    _reportBloc =
-        ReportBloc(variableRepository: context.read<VariableRepository>());
-    _reportBloc.add(ReportEnterPageEvent());
-    _noteController = TextEditingController();
+    _reportBloc = ReportBloc(
+      variableRepository: context.read<VariableRepository>(),
+    )..add(ReportEnterPageEvent());
     super.initState();
   }
 
@@ -114,14 +112,22 @@ class _ReportPageState extends State<ReportPage> {
             floatingActionButton: Builder(
               builder: (ctx) => FloatingActionButton(
                 child: Icon(Icons.note_add_outlined),
+                backgroundColor: state.note == ""
+                    ? Theme.of(context).chipTheme.backgroundColor
+                    : Theme.of(context).accentColor,
+                foregroundColor: state.note == ""
+                    ? Theme.of(context).chipTheme.labelStyle.color
+                    : null,
                 onPressed: () {
                   showModalBottomSheet<String>(
                     isScrollControlled: true,
                     context: ctx,
                     builder: (ctx) => Note(
-                      note: state.note,
-                      onNoteUpdate: (note) =>
-                          _reportBloc.add(ReportUpdateNote(note)),
+                      initialValue: state.note,
+                      onSubmit: (note) {
+                        _reportBloc.add(ReportUpdateNote(note));
+                        Navigator.pop(context);
+                      },
                     ),
                   );
                 },
