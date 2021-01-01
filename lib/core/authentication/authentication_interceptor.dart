@@ -16,7 +16,7 @@ class AuthenticationInterceptor extends Interceptor {
     dio.interceptors.add(this);
   }
 
-  void initialise(AuthenticationBloc authenticationBloc) {
+  initialise(AuthenticationBloc authenticationBloc) {
     this.authenticationBloc = authenticationBloc;
     initialised = true;
   }
@@ -24,19 +24,20 @@ class AuthenticationInterceptor extends Interceptor {
   @override
   Future<void> onRequest(RequestOptions options) async {
     if (!initialised) {
-      return options;
+      return super.onRequest(options);
     }
     final state = authenticationBloc.state;
     if (state.status == AuthenticationStatus.authenticated &&
         options.headers['Authorization'] == null) {
       options.headers['Authorization'] = 'Bearer ${state.authData.access}';
     }
+    return super.onRequest(options);
   }
 
   @override
   Future<void> onError(DioError error) async {
     if (!initialised) {
-      return error;
+      return super.onError(error);
     }
     // Token expired
     if (error.response?.statusCode == 401 &&

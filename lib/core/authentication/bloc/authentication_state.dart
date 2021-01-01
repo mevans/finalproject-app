@@ -30,6 +30,6 @@ class AuthenticationState extends BlocState {
         status: status ?? this.status,
         authData: authData == null ? this.authData : authData.value,
         user: user == null ? this.user : user.value,
-        initialising: initialising == null ? this.initialising : initialising,
+        initialising: initialising ?? this.initialising,
       );
 }

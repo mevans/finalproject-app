@@ -1,5 +1,8 @@
 import 'package:app/core/authentication/authentication_interceptor.dart';
 import 'package:app/core/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/notifications/bloc/notification_bloc.dart';
+import 'package:app/core/notifications/token_interceptor.dart';
+import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/features/login/login_page.dart';
 import 'package:app/features/report/report.dart';
 import 'package:app/features/signup/signup_page.dart';
@@ -24,11 +27,19 @@ class _AppState extends State<App> {
         BlocProvider<AuthenticationBloc>(
           lazy: false,
           create: (ctx) => AuthenticationBloc(
+            rootBloc: ctx.read<RootBloc>(),
             userRepository: ctx.read<UserRepository>(),
             tokenRepository: ctx.read<TokenRepository>(),
             authenticationInterceptor: ctx.read<AuthenticationInterceptor>(),
             navigator: navigator,
           )..add(AppStarted()),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (ctx) => NotificationBloc(
+            rootBloc: ctx.read<RootBloc>(),
+            tokenInterceptor: ctx.read<TokenInterceptor>(),
+          ),
         ),
       ],
       child: MaterialApp(

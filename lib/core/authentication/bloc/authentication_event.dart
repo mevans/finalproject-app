@@ -6,10 +6,10 @@ abstract class AuthenticationEvent extends BlocEvent {
 
 class AppStarted extends AuthenticationEvent {}
 
-class LoggedIn extends AuthenticationEvent {
+class AuthenticateEvent extends AuthenticationEvent {
   final AuthData authData;
 
-  LoggedIn({@required this.authData}) : super([authData]);
+  AuthenticateEvent(this.authData) : super([authData]);
 }
 
 class LoggedOut extends AuthenticationEvent {}

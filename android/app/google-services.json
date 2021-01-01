@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1089468987671",
+    "project_id": "final-project-75515",
+    "storage_bucket": "final-project-75515.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089468987671:android:ef3df09d7df34c71051f52",
+        "android_client_info": {
+          "package_name": "uk.co.evans99.matthew.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089468987671-rgmd26e36pketks5eh419jh0m5pfgb8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeIup6rQcqd3tBxGe7UNPfCDYmqNrZaEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089468987671-rgmd26e36pketks5eh419jh0m5pfgb8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-import 'package:app/core/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
 import 'package:app/shared/models/nullable.dart';
@@ -10,12 +10,12 @@ part 'signup_event.dart';
 part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
+  final RootBloc rootBloc;
   final UserRepository userRepository;
-  final AuthenticationBloc authenticationBloc;
 
   SignupBloc({
+    this.rootBloc,
     this.userRepository,
-    this.authenticationBloc,
   }) : super(SignupState.initial);
 
   @override
@@ -41,7 +41,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           token: state.verifiedToken,
         );
 
-        authenticationBloc.add(LoggedIn(authData: authData));
+        rootBloc.add(LoggedInEvent(authData));
 
         event.onSuccess();
       } catch (e) {

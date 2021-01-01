@@ -24,9 +24,11 @@ class LoginForm extends StatelessWidget {
     return ReactiveFormBuilder(
       form: () => FormGroup({
         'email': FormControl(
+          value: 'wassup@gmail.com',
           validators: [Validators.required, Validators.email],
         ),
         'password': FormControl(
+          value: 'Power12345',
           validators: [Validators.required],
         )
       }),

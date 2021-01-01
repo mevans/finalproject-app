@@ -1,4 +1,4 @@
-import 'package:app/core/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/features/login/bloc/login_bloc.dart';
 import 'package:app/shared/components/auth_page.dart';
 import 'package:app/shared/repositories/user_repository.dart';
@@ -18,8 +18,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     _loginBloc = LoginBloc(
+      rootBloc: context.read<RootBloc>(),
       userRepository: context.read<UserRepository>(),
-      authenticationBloc: context.read<AuthenticationBloc>(),
     );
     super.initState();
   }

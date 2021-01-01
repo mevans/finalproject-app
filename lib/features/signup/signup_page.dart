@@ -1,4 +1,4 @@
-import 'package:app/core/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/features/report/report.dart';
 import 'package:app/features/signup/bloc/signup_bloc.dart';
 import 'package:app/features/signup/components/signup_form.dart';
@@ -20,8 +20,8 @@ class _SignupPageState extends State<SignupPage> {
   @override
   void initState() {
     _signupBloc = SignupBloc(
+      rootBloc: context.read<RootBloc>(),
       userRepository: context.read<UserRepository>(),
-      authenticationBloc: context.read<AuthenticationBloc>(),
     );
     super.initState();
   }
