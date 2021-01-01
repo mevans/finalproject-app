@@ -10,18 +10,22 @@ import 'package:app/shared/models/variable_instance.dart';
 import 'package:app/shared/repositories/variable_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 part 'report_event.dart';
 part 'report_state.dart';
 
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
-  final RootBloc rootBloc;
-  final VariableRepository variableRepository;
+  final Locator read;
+  RootBloc rootBloc;
+  VariableRepository variableRepository;
 
   ReportBloc({
-    this.rootBloc,
-    this.variableRepository,
-  }) : super(ReportState.initial);
+    @required this.read,
+  }) : super(ReportState.initial) {
+    rootBloc = read<RootBloc>();
+    variableRepository = read<VariableRepository>();
+  }
 
   @override
   Stream<ReportState> mapEventToState(ReportEvent event) async* {

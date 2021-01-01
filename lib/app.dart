@@ -1,13 +1,8 @@
-import 'package:app/core/authentication/authentication_interceptor.dart';
 import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/core/navigation/bloc/navigation_bloc.dart';
 import 'package:app/core/navigation/constants/routes.dart';
 import 'package:app/core/notifications/bloc/notification_bloc.dart';
-import 'package:app/core/notifications/token_interceptor.dart';
-import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/core/snackbar/bloc/snackbar_bloc.dart';
-import 'package:app/shared/repositories/token_repository.dart';
-import 'package:app/shared/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,31 +20,24 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<AuthenticationBloc>(
           lazy: false,
-          create: (ctx) => AuthenticationBloc(
-            rootBloc: ctx.read<RootBloc>(),
-            userRepository: ctx.read<UserRepository>(),
-            tokenRepository: ctx.read<TokenRepository>(),
-            authenticationInterceptor: ctx.read<AuthenticationInterceptor>(),
-          )..add(AppStarted()),
+          create: (ctx) =>
+              AuthenticationBloc(read: ctx.read)..add(AppStarted()),
         ),
         BlocProvider<NotificationBloc>(
           lazy: false,
-          create: (ctx) => NotificationBloc(
-            rootBloc: ctx.read<RootBloc>(),
-            tokenInterceptor: ctx.read<TokenInterceptor>(),
-          ),
+          create: (ctx) => NotificationBloc(read: ctx.read),
         ),
         BlocProvider<NavigationBloc>(
           lazy: false,
           create: (ctx) => NavigationBloc(
-            rootBloc: ctx.read<RootBloc>(),
+            read: ctx.read,
             navigator: navigator,
           ),
         ),
         BlocProvider<SnackbarBloc>(
           lazy: false,
           create: (ctx) => SnackbarBloc(
-            rootBloc: ctx.read<RootBloc>(),
+            read: ctx.read,
             navigator: navigator,
           ),
         ),

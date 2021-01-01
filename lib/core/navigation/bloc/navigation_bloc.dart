@@ -7,21 +7,26 @@ import 'package:app/shared/models/bloc_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 part 'navigation_event.dart';
 part 'navigation_state.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  final RootBloc rootBloc;
+  final Locator read;
   final GlobalKey<NavigatorState> navigator;
+  RootBloc rootBloc;
 
   NavigationBloc({
-    this.rootBloc,
-    this.navigator,
+    @required this.read,
+    @required this.navigator,
   }) : super(NavigationState.initial) {
+    rootBloc = read<RootBloc>();
+
     rootBloc.registerRootEvent(NavigationToRoot, this);
     rootBloc.registerRootEvent(NavigationPush, this);
     rootBloc.registerRootEvent(NavigationPop, this);
+
     rootBloc.addEventListener(
         AuthenticatedEvent, (e) => add(NavigationToRoot(Routes.report)));
     rootBloc.addEventListener(

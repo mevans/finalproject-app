@@ -6,29 +6,29 @@ import 'package:app/shared/models/bloc_event.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 part 'snackbar_event.dart';
 part 'snackbar_state.dart';
 
 class SnackbarBloc extends Bloc<SnackbarEvent, SnackbarState> {
-  final RootBloc rootBloc;
+  final Locator read;
   final GlobalKey<NavigatorState> navigator;
+  RootBloc rootBloc;
 
   SnackbarBloc({
-    @required this.rootBloc,
+    @required this.read,
     @required this.navigator,
   }) : super(SnackbarInitial()) {
+    rootBloc = read<RootBloc>();
+
     rootBloc.registerRootEvent(ShowSnackbarEvent, this);
     rootBloc.registerRootEvent(ShowErrorSnackbar, this);
     rootBloc.registerRootEvent(ShowInfoSnackbar, this);
   }
 
   @override
-  Stream<SnackbarState> mapEventToState(
-    SnackbarEvent event,
-  ) async* {
-    // TODO: implement mapEventToState
-  }
+  Stream<SnackbarState> mapEventToState(SnackbarEvent event) async* {}
 
   @override
   void onEvent(SnackbarEvent event) {

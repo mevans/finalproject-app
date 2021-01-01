@@ -1,9 +1,7 @@
 import 'package:app/core/navigation/bloc/navigation_bloc.dart';
 import 'package:app/core/navigation/constants/routes.dart';
-import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/features/login/bloc/login_bloc.dart';
 import 'package:app/shared/components/auth_page.dart';
-import 'package:app/shared/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,10 +18,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    _loginBloc = LoginBloc(
-      rootBloc: context.read<RootBloc>(),
-      userRepository: context.read<UserRepository>(),
-    );
+    _loginBloc = LoginBloc(read: context.read);
     _navigationBloc = context.read<NavigationBloc>();
     super.initState();
   }

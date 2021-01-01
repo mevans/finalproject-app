@@ -5,6 +5,7 @@ import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/shared/repositories/token_repository.dart';
 import 'package:app/shared/repositories/user_repository.dart';
 import 'package:app/shared/repositories/variable_repository.dart';
+import 'package:app/shared/services/alert_service.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -60,6 +61,7 @@ void main() async {
               create: (ctx) => TokenInterceptor(
                     dio: dio,
                   )),
+          RepositoryProvider(create: (ctx) => AlertService()),
         ],
         child: App(),
       ),

@@ -1,9 +1,7 @@
-import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/core/navigation/bloc/navigation_bloc.dart';
-import 'package:app/core/root_bloc/root_bloc.dart';
+import 'package:app/core/navigation/constants/routes.dart';
 import 'package:app/features/report/bloc/report_bloc.dart';
 import 'package:app/features/report/components/variables_list.dart';
-import 'package:app/shared/repositories/variable_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,10 +19,7 @@ class _ReportPageState extends State<ReportPage> {
 
   @override
   void initState() {
-    _reportBloc = ReportBloc(
-      rootBloc: context.read<RootBloc>(),
-      variableRepository: context.read<VariableRepository>(),
-    )..add(ReportEnterPageEvent());
+    _reportBloc = ReportBloc(read: context.read)..add(ReportEnterPageEvent());
     _navigationBloc = context.read<NavigationBloc>();
     super.initState();
   }
@@ -43,9 +38,9 @@ class _ReportPageState extends State<ReportPage> {
               actions: [
                 IconButton(
                   icon: Icon(Icons.settings),
-                  onPressed: () {
-                    context.read<AuthenticationBloc>().add(LoggedOut());
-                  },
+                  onPressed: () => _navigationBloc.add(
+                    NavigationPush(Routes.settings),
+                  ),
                 )
               ],
             ),

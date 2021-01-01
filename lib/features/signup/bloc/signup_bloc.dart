@@ -4,19 +4,25 @@ import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
 import 'package:app/shared/models/nullable.dart';
 import 'package:app/shared/repositories/user_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 part 'signup_event.dart';
+
 part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  final RootBloc rootBloc;
-  final UserRepository userRepository;
+  final Locator read;
+  RootBloc rootBloc;
+  UserRepository userRepository;
 
   SignupBloc({
-    this.rootBloc,
-    this.userRepository,
-  }) : super(SignupState.initial);
+    @required this.read,
+  }) : super(SignupState.initial) {
+    rootBloc = read<RootBloc>();
+    userRepository = read<UserRepository>();
+  }
 
   @override
   Stream<SignupState> mapEventToState(SignupEvent event) async* {

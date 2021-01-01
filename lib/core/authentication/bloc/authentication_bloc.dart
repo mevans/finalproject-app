@@ -12,25 +12,31 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 import 'package:meta/meta.dart';
+import 'package:provider/provider.dart';
 
 import '../authentication_interceptor.dart';
 
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final RootBloc rootBloc;
-  final TokenRepository tokenRepository;
-  final UserRepository userRepository;
-  final AuthenticationInterceptor authenticationInterceptor;
+  final Locator read;
+  RootBloc rootBloc;
+  TokenRepository tokenRepository;
+  UserRepository userRepository;
+  AuthenticationInterceptor authenticationInterceptor;
 
   AuthenticationBloc({
-    @required this.rootBloc,
-    @required this.userRepository,
-    @required this.tokenRepository,
-    @required this.authenticationInterceptor,
+    @required this.read,
   }) : super(AuthenticationState.initial) {
+
+    rootBloc = read<RootBloc>();
+    tokenRepository = read<TokenRepository>();
+    userRepository = read<UserRepository>();
+    authenticationInterceptor = read<AuthenticationInterceptor>();
+
     this.authenticationInterceptor.initialise(this);
     this.rootBloc.registerRootEvent(AuthenticateEvent, this);
   }
@@ -94,8 +100,7 @@ class AuthenticationBloc
 
   @override
   void onTransition(
-    Transition<AuthenticationEvent, AuthenticationState> transition,
-  ) {
+      Transition<AuthenticationEvent, AuthenticationState> transition,) {
     super.onTransition(transition);
     if (statusTransitions(transition, AuthenticationStatus.authenticated)) {
       add(GetUser());
@@ -107,9 +112,8 @@ class AuthenticationBloc
   }
 
   bool statusTransitions(
-    Transition<AuthenticationEvent, AuthenticationState> transition,
-    AuthenticationStatus status,
-  ) {
+      Transition<AuthenticationEvent, AuthenticationState> transition,
+      AuthenticationStatus status,) {
     return transition.currentState.status != status &&
         transition.nextState.status == status;
   }

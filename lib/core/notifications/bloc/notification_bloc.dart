@@ -8,24 +8,28 @@ import 'package:app/shared/models/nullable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:provider/provider.dart';
 part 'notification_event.dart';
 part 'notification_state.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
-  final RootBloc rootBloc;
-  final TokenInterceptor tokenInterceptor;
+  final Locator read;
+  RootBloc rootBloc;
+  TokenInterceptor tokenInterceptor;
 
   final List<StreamSubscription> notificationSubscriptions = [];
 
   NotificationBloc({
-    @required this.rootBloc,
-    @required this.tokenInterceptor,
+    @required this.read,
   }) : super(NotificationState.initial) {
+    rootBloc = read<RootBloc>();
+    tokenInterceptor = read<TokenInterceptor>();
+
     rootBloc.addEventListener(
         AuthenticatedEvent, (e) => add(NotificationInitialiseEvent()));
     rootBloc.addEventListener(
         UnauthenticatedEvent, (e) => add(NotificationUninitialiseEvent()));
+
     tokenInterceptor.initialise(this);
   }
 

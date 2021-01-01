@@ -1,9 +1,7 @@
-import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/features/signup/bloc/signup_bloc.dart';
 import 'package:app/features/signup/components/signup_form.dart';
 import 'package:app/features/signup/components/verify_token_form.dart';
 import 'package:app/shared/components/auth_page.dart';
-import 'package:app/shared/repositories/user_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,10 +16,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   void initState() {
-    _signupBloc = SignupBloc(
-      rootBloc: context.read<RootBloc>(),
-      userRepository: context.read<UserRepository>(),
-    );
+    _signupBloc = SignupBloc(read: context.read);
     super.initState();
   }
 
