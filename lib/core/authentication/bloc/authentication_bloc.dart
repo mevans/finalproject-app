@@ -16,7 +16,6 @@ import 'package:meta/meta.dart';
 import '../authentication_interceptor.dart';
 
 part 'authentication_event.dart';
-
 part 'authentication_state.dart';
 
 class AuthenticationBloc
@@ -33,8 +32,7 @@ class AuthenticationBloc
     @required this.authenticationInterceptor,
   }) : super(AuthenticationState.initial) {
     this.authenticationInterceptor.initialise(this);
-    this.rootBloc.addEventListener(
-        LoggedInEvent, (e) => add(AuthenticateEvent(e.authData)));
+    this.rootBloc.registerRootEvent(AuthenticateEvent, this);
   }
 
   @override

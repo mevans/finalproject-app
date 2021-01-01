@@ -1,3 +1,4 @@
+import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
@@ -40,7 +41,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           token: state.verifiedToken,
         );
 
-        rootBloc.add(LoggedInEvent(authData));
+        rootBloc.add(AuthenticateEvent(authData));
       } catch (e) {
         print(e);
       }

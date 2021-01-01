@@ -1,3 +1,5 @@
+import 'package:app/core/root_bloc/root_bloc.dart';
+import 'package:app/core/snackbar/bloc/snackbar_bloc.dart';
 import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
 import 'package:app/shared/models/choice_response.dart';
@@ -13,9 +15,13 @@ part 'report_event.dart';
 part 'report_state.dart';
 
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
+  final RootBloc rootBloc;
   final VariableRepository variableRepository;
 
-  ReportBloc({this.variableRepository}) : super(ReportState.initial);
+  ReportBloc({
+    this.rootBloc,
+    this.variableRepository,
+  }) : super(ReportState.initial);
 
   @override
   Stream<ReportState> mapEventToState(ReportEvent event) async* {
@@ -79,14 +85,17 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       yield state.copyWith(
         submittingReport: true,
       );
-      await variableRepository.submitReport(report: report);
-      yield state.copyWith(
-        submittingReport: false,
-        rangeResponses: [],
-        choiceResponses: [],
-        openPanels: [],
-        note: "",
-      );
+      try {
+        await variableRepository.submitReport(report: report);
+        yield state.copyWith(
+          submittingReport: false,
+          rangeResponses: [],
+          choiceResponses: [],
+          openPanels: [],
+          note: "",
+        );
+        rootBloc.add(ShowInfoSnackbar("Report Submitted!"));
+      } catch (e) {}
     }
     if (event is ReportRangeClear) {
       final rangeResponses = [...state.rangeResponses];

@@ -1,6 +1,6 @@
 part of 'navigation_bloc.dart';
 
-abstract class NavigationEvent extends BlocEvent {
+abstract class NavigationEvent extends BlocEvent with RootEvent {
   NavigationEvent([props]) : super(props: props);
 }
 

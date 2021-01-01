@@ -5,6 +5,7 @@ import 'package:app/core/navigation/constants/routes.dart';
 import 'package:app/core/notifications/bloc/notification_bloc.dart';
 import 'package:app/core/notifications/token_interceptor.dart';
 import 'package:app/core/root_bloc/root_bloc.dart';
+import 'package:app/core/snackbar/bloc/snackbar_bloc.dart';
 import 'package:app/shared/repositories/token_repository.dart';
 import 'package:app/shared/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,13 @@ class _AppState extends State<App> {
         BlocProvider<NavigationBloc>(
           lazy: false,
           create: (ctx) => NavigationBloc(
+            rootBloc: ctx.read<RootBloc>(),
+            navigator: navigator,
+          ),
+        ),
+        BlocProvider<SnackbarBloc>(
+          lazy: false,
+          create: (ctx) => SnackbarBloc(
             rootBloc: ctx.read<RootBloc>(),
             navigator: navigator,
           ),

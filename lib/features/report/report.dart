@@ -1,5 +1,6 @@
 import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/core/navigation/bloc/navigation_bloc.dart';
+import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/features/report/bloc/report_bloc.dart';
 import 'package:app/features/report/components/variables_list.dart';
 import 'package:app/shared/repositories/variable_repository.dart';
@@ -21,6 +22,7 @@ class _ReportPageState extends State<ReportPage> {
   @override
   void initState() {
     _reportBloc = ReportBloc(
+      rootBloc: context.read<RootBloc>(),
       variableRepository: context.read<VariableRepository>(),
     )..add(ReportEnterPageEvent());
     _navigationBloc = context.read<NavigationBloc>();
@@ -29,17 +31,8 @@ class _ReportPageState extends State<ReportPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ReportBloc, ReportState>(
+    return BlocBuilder<ReportBloc, ReportState>(
       cubit: _reportBloc,
-      listener: (context, state) {
-        if (state.submittingReport) {
-          Future.delayed(Duration(milliseconds: 500)).then(
-            (value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Report Submitted!"),
-            )),
-          );
-        }
-      },
       builder: (context, state) {
         final reportButtonDisabled = state.submittingReport ||
             (state.rangeResponses.isEmpty && state.choiceResponses.isEmpty);

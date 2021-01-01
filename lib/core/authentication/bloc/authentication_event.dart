@@ -6,7 +6,7 @@ abstract class AuthenticationEvent extends BlocEvent {
 
 class AppStarted extends AuthenticationEvent {}
 
-class AuthenticateEvent extends AuthenticationEvent {
+class AuthenticateEvent extends AuthenticationEvent with RootEvent {
   final AuthData authData;
 
   AuthenticateEvent(this.authData) : super([authData]);

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
@@ -33,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           password: event.password,
         );
 
-        rootBloc.add(LoggedInEvent(authData));
+        rootBloc.add(AuthenticateEvent(authData));
       } catch (error) {} finally {
         yield state.copyWith(
           submitting: false,
