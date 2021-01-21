@@ -1,13 +1,14 @@
+import 'package:app/shared/models/valid_invite.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class SignupForm extends StatelessWidget {
-  final String name;
+  final ValidInvite validInvite;
   final Function(String email, String password, String password2) onSubmit;
 
   const SignupForm({
     Key key,
-    this.name,
+    this.validInvite,
     this.onSubmit,
   }) : super(key: key);
 
@@ -23,8 +24,11 @@ class SignupForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReactiveFormBuilder(
       form: () => FormGroup({
-        'email':
-            FormControl(validators: [Validators.required, Validators.email]),
+        'email': FormControl(
+          value: validInvite?.email ?? "",
+          validators: [Validators.required, Validators.email],
+          disabled: validInvite != null,
+        ),
         'password': FormControl(validators: [Validators.required]),
         'password2': FormControl(validators: [Validators.required]),
       }),
@@ -33,7 +37,7 @@ class SignupForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "Hi there $name, create some account details to complete the registration",
+            "Hi there ${validInvite.firstName}, create some account details to complete the registration",
           ),
           SizedBox(height: 20),
           ReactiveTextField(

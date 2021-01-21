@@ -31,6 +31,6 @@ class AlertService {
           ),
         ],
       ),
-    ).then((r) => r != null && !r);
+    ).then((r) => r != null);
   }
 }

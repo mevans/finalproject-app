@@ -12,8 +12,9 @@ class NavigationToRoot extends NavigationEvent {
 
 class NavigationPush extends NavigationEvent {
   final String route;
+  final dynamic data;
 
-  NavigationPush(this.route) : super([route]);
+  NavigationPush(this.route, {this.data}) : super([route, data]);
 }
 
 class NavigationPop<T> extends NavigationEvent {

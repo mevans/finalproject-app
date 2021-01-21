@@ -1,6 +1,6 @@
 import 'package:app/shared/models/auth_data.dart';
 import 'package:app/shared/models/patient.dart';
-import 'package:app/shared/models/valid_token.dart';
+import 'package:app/shared/models/valid_invite.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 
@@ -31,25 +31,33 @@ class UserRepository {
         .then((response) => Patient.fromJson(response.data));
   }
 
-  Future<ValidToken> verifySignupToken({
+  Future<ValidInvite> verifyInviteCode({
+    @required String inviteCode,
+  }) {
+    return this.dio.post('auth/verify-invite-code', data: {
+      'code': inviteCode,
+    }).then((response) => ValidInvite.fromJson(response.data));
+  }
+
+  Future<ValidInvite> verifyInviteToken({
     @required String token,
   }) {
-    return this.dio.post('auth/verify-token', data: {
+    return this.dio.post('auth/verify-invite-token', data: {
       'token': token,
-    }).then((response) => ValidToken.fromJson(response.data));
+    }).then((response) => ValidInvite.fromJson(response.data));
   }
 
   Future<AuthData> register({
     @required String email,
     @required String password,
     @required String password2,
-    @required String token,
+    @required String code,
   }) {
     return this.dio.post('auth/register', data: {
       'email': email,
       'password': password,
       'password2': password2,
-      'token': token,
+      'code': code,
     }).then((response) => AuthData.fromJson(response.data));
   }
 }

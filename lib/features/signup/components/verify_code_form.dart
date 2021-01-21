@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class VerifyTokenForm extends StatelessWidget {
-  final Function(String token) onSubmit;
+class VerifyCodeForm extends StatelessWidget {
+  final Function(String code) onSubmit;
 
-  const VerifyTokenForm({
+  const VerifyCodeForm({
     Key key,
     this.onSubmit,
   }) : super(key: key);
 
   _onSubmit(FormGroup form) {
-    onSubmit(form.control('token').value);
+    onSubmit(form.control('code').value);
   }
 
   @override
   Widget build(BuildContext context) {
     return ReactiveFormBuilder(
       form: () => FormGroup({
-        'token': FormControl(
+        'code': FormControl(
           validators: [Validators.minLength(5), Validators.maxLength(5)],
         ),
       }),
@@ -26,7 +26,7 @@ class VerifyTokenForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ReactiveTextField(
-            formControlName: 'token',
+            formControlName: 'code',
             textAlign: TextAlign.center,
             textCapitalization: TextCapitalization.characters,
             decoration: InputDecoration(

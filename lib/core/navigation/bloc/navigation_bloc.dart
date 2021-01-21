@@ -52,7 +52,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       );
     }
     if (event is NavigationPush) {
-      navigator.currentState.pushNamed(event.route);
+      navigator.currentState.pushNamed(event.route, arguments: event.data);
     }
     if (event is NavigationPop) {
       navigator.currentState.pop(event.result);

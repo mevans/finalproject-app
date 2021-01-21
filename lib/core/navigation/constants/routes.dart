@@ -16,7 +16,9 @@ class Routes {
     '/': (ctx) => SplashPage(),
     '/login': (ctx) => LoginPage(),
     '/report': (ctx) => ReportPage(),
-    '/signup': (ctx) => SignupPage(),
+    '/signup': (ctx) => SignupPage(
+          invite: ModalRoute.of(ctx).settings.arguments,
+        ),
     '/settings': (ctx) => SettingsPage(),
   };
 }

@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:app/core/navigation/bloc/navigation_bloc.dart';
+import 'package:app/core/navigation/constants/routes.dart';
 import 'package:app/core/root_bloc/root_bloc.dart';
+import 'package:app/core/snackbar/bloc/snackbar_bloc.dart';
 import 'package:app/shared/models/auth_data.dart';
 import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
@@ -8,6 +11,7 @@ import 'package:app/shared/models/nullable.dart';
 import 'package:app/shared/models/patient.dart';
 import 'package:app/shared/repositories/token_repository.dart';
 import 'package:app/shared/repositories/user_repository.dart';
+import 'package:app/shared/services/dynamic_link_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fresh_dio/fresh_dio.dart';
@@ -17,7 +21,6 @@ import 'package:provider/provider.dart';
 import '../authentication_interceptor.dart';
 
 part 'authentication_event.dart';
-
 part 'authentication_state.dart';
 
 class AuthenticationBloc
@@ -27,18 +30,20 @@ class AuthenticationBloc
   TokenRepository tokenRepository;
   UserRepository userRepository;
   AuthenticationInterceptor authenticationInterceptor;
+  DynamicLinkService dynamicLinkService;
 
   AuthenticationBloc({
     @required this.read,
   }) : super(AuthenticationState.initial) {
-
     rootBloc = read<RootBloc>();
     tokenRepository = read<TokenRepository>();
     userRepository = read<UserRepository>();
     authenticationInterceptor = read<AuthenticationInterceptor>();
+    dynamicLinkService = read<DynamicLinkService>();
 
     this.authenticationInterceptor.initialise(this);
     this.rootBloc.registerRootEvent(AuthenticateEvent, this);
+    this.dynamicLinkService.initialise((uri) => this.add(OpenDynamicLink(uri)));
   }
 
   @override
@@ -96,11 +101,32 @@ class AuthenticationBloc
         authData: Nullable(refreshedData),
       );
     }
+
+    if (event is OpenDynamicLink) {
+      if (state.status == AuthenticationStatus.authenticated) {
+        this.rootBloc.add(ShowErrorSnackbar(
+            "Cannot accept invite as you're already authenticated"));
+      } else {
+        final token = event.uri.queryParameters['token'];
+        print(token);
+        try {
+          final invite = await userRepository.verifyInviteToken(token: token);
+          print(invite);
+          this.rootBloc.add(NavigationPush(Routes.signup, data: invite));
+        } catch (e) {
+          print(e);
+          this
+              .rootBloc
+              .add(ShowErrorSnackbar("Invalid invite. It may have expired."));
+        }
+      }
+    }
   }
 
   @override
   void onTransition(
-      Transition<AuthenticationEvent, AuthenticationState> transition,) {
+    Transition<AuthenticationEvent, AuthenticationState> transition,
+  ) {
     super.onTransition(transition);
     if (statusTransitions(transition, AuthenticationStatus.authenticated)) {
       add(GetUser());
@@ -112,8 +138,9 @@ class AuthenticationBloc
   }
 
   bool statusTransitions(
-      Transition<AuthenticationEvent, AuthenticationState> transition,
-      AuthenticationStatus status,) {
+    Transition<AuthenticationEvent, AuthenticationState> transition,
+    AuthenticationStatus status,
+  ) {
     return transition.currentState.status != status &&
         transition.nextState.status == status;
   }

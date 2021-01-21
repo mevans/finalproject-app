@@ -36,6 +36,7 @@ dependencies:
   flutter_spinbox: ^0.3.0
   reactive_forms: ^7.6.3
   firebase_messaging: ^8.0.0-dev.11
+  firebase_dynamic_links: ^0.7.0+1
 
 dev_dependencies:
   flutter_test:

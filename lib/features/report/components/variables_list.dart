@@ -1,8 +1,6 @@
-import 'package:app/features/report/components/range_variable_input.dart';
 import 'package:app/features/report/components/variable_input.dart';
 import 'package:app/shared/models/choice_response.dart';
 import 'package:app/shared/models/range_response.dart';
-import 'package:app/shared/models/variable.dart';
 import 'package:app/shared/models/variable_instance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,16 +50,37 @@ class VariablesList extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        variable.variable.name,
-                        style: TextStyle(
-                          fontSize: 16,
-                        ).merge(responded ? TextStyle(
-                          color: Theme.of(context).accentColor,
-                          fontWeight: FontWeight.w600,
-                        ) : null),
+                      Icon(Icons.alarm),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              variable.variable.name,
+                              style: TextStyle(
+                                fontSize: 16,
+                              ).merge(responded
+                                  ? TextStyle(
+                                      color: Theme.of(context).accentColor,
+                                      fontWeight: FontWeight.w600,
+                                    )
+                                  : null),
+                            ),
+                            Text(
+                              "Every day",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .color
+                                    .withOpacity(0.5),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       ExpandIcon(
                         padding: const EdgeInsets.all(16),
@@ -103,61 +122,6 @@ class VariablesList extends StatelessWidget {
       },
       separatorBuilder: (ctx, index) => SizedBox(height: 8),
       itemCount: variables.length,
-    );
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: ExpansionPanelList(
-        dividerColor: Theme.of(context).dividerColor,
-        expansionCallback: (panelIndex, _) =>
-            onPanelToggled(variables[panelIndex].id),
-        expandedHeaderPadding: EdgeInsets.zero,
-        children: variables.map(
-          (variable) {
-            Widget inputWidget = Container();
-            bool active = false;
-            switch (variable.variable.type) {
-              case VariableType.range:
-                RangeResponse response = rangeResponses.firstWhere(
-                    (r) => r.variable == variable.variable.id,
-                    orElse: () => null);
-                active = response != null;
-                inputWidget = RangeVariableInput(
-                  rangeType: variable.variable.range,
-                  rangeResponse: response,
-                  onValueChanged: onRangeResponse,
-                  onClear: () => onRangeClear(variable.variable.id),
-                );
-                break;
-              case VariableType.choice:
-                break;
-            }
-            return ExpansionPanel(
-              canTapOnHeader: true,
-              isExpanded: expandedPanels.contains(variable.id),
-              headerBuilder: (ctx, expanded) {
-                return ListTile(
-                  title: Text(
-                    "${variable.variable.name}",
-                    style: active
-                        ? TextStyle(
-                            color: Theme.of(context).accentColor,
-                            fontWeight: FontWeight.bold,
-                          )
-                        : null,
-                  ),
-                );
-              },
-              body: SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: inputWidget,
-                ),
-              ),
-            );
-          },
-        ).toList(),
-      ),
     );
   }
 }

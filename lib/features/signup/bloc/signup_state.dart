@@ -1,26 +1,22 @@
 part of 'signup_bloc.dart';
 
 class SignupState extends BlocState {
-  final String verifiedToken;
-  final String firstName;
+  final ValidInvite validInvite;
 
   SignupState({
-    this.verifiedToken,
-    this.firstName,
-  }) : super([verifiedToken, firstName]);
+    this.validInvite,
+  }) : super([
+          validInvite,
+        ]);
 
-  static final initial = SignupState(
-    verifiedToken: null,
-    firstName: null,
-  );
+  static final initial = (ValidInvite invite) => SignupState(
+        validInvite: invite,
+      );
 
   SignupState copyWith({
-    Nullable<String> verifiedToken,
-    String firstName,
+    Nullable<ValidInvite> validInvite,
   }) =>
       SignupState(
-        verifiedToken:
-            verifiedToken == null ? this.verifiedToken : verifiedToken.value,
-        firstName: firstName ?? this.firstName,
+        validInvite: validInvite == null ? this.validInvite : validInvite.value,
       );
 }

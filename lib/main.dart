@@ -6,6 +6,7 @@ import 'package:app/shared/repositories/token_repository.dart';
 import 'package:app/shared/repositories/user_repository.dart';
 import 'package:app/shared/repositories/variable_repository.dart';
 import 'package:app/shared/services/alert_service.dart';
+import 'package:app/shared/services/dynamic_link_service.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +33,7 @@ void main() async {
   await Firebase.initializeApp();
   EquatableConfig.stringify = true;
   // Bloc.observer = LoggerBloc();
-  final url = 'http://192.168.1.116:8000/patient/';
+  final url = 'http://192.168.0.25:8000/patient/';
   final dio = Dio()
     ..options.baseUrl = url
     ..interceptors.add(InterceptorsWrapper(
@@ -62,6 +63,7 @@ void main() async {
                     dio: dio,
                   )),
           RepositoryProvider(create: (ctx) => AlertService()),
+          RepositoryProvider(create: (ctx) => DynamicLinkService()),
         ],
         child: App(),
       ),

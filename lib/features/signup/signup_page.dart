@@ -1,12 +1,17 @@
 import 'package:app/features/signup/bloc/signup_bloc.dart';
 import 'package:app/features/signup/components/signup_form.dart';
-import 'package:app/features/signup/components/verify_token_form.dart';
+import 'package:app/features/signup/components/verify_code_form.dart';
 import 'package:app/shared/components/auth_page.dart';
+import 'package:app/shared/models/valid_invite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupPage extends StatefulWidget {
+  final ValidInvite invite;
+
+  const SignupPage({Key key, this.invite}) : super(key: key);
+
   @override
   _SignupPageState createState() => _SignupPageState();
 }
@@ -16,7 +21,11 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   void initState() {
-    _signupBloc = SignupBloc(read: context.read);
+    print("here");
+    _signupBloc = SignupBloc(
+      read: context.read,
+      invite: widget.invite,
+    );
     super.initState();
   }
 
@@ -26,13 +35,13 @@ class _SignupPageState extends State<SignupPage> {
       child: BlocBuilder<SignupBloc, SignupState>(
         cubit: _signupBloc,
         builder: (ctx, state) {
-          return state.verifiedToken == null
-              ? VerifyTokenForm(
-                  onSubmit: (token) =>
-                      _signupBloc.add(SignupVerifyTokenEvent(token)),
+          return state.validInvite == null
+              ? VerifyCodeForm(
+                  onSubmit: (code) =>
+                      _signupBloc.add(SignupVerifyCodeEvent(code)),
                 )
               : SignupForm(
-                  name: state.firstName,
+                  validInvite: state.validInvite,
                   onSubmit: (email, password, password2) => _signupBloc.add(
                     SignupSubmitEvent(
                       email,

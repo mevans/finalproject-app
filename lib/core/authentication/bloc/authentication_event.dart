@@ -23,3 +23,9 @@ class RefreshTokenSuccess extends AuthenticationEvent {
 }
 
 class RefreshTokenFailure extends AuthenticationEvent {}
+
+class OpenDynamicLink extends AuthenticationEvent {
+  final Uri uri;
+
+  OpenDynamicLink(this.uri) : super([uri]);
+}
