@@ -1,5 +1,6 @@
 import 'package:app/features/login/login_page.dart';
 import 'package:app/features/report/report.dart';
+import 'package:app/features/settings/notification_preferences/notification_preferences_page.dart';
 import 'package:app/features/settings/settings_page.dart';
 import 'package:app/features/signup/signup_page.dart';
 import 'package:app/features/splash/splash.dart';
@@ -11,6 +12,7 @@ class Routes {
   static String report = '/report';
   static String signup = '/signup';
   static String settings = '/settings';
+  static String notificationPreferences = '/notification-preferences';
 
   static Map<String, WidgetBuilder> routes = {
     '/': (ctx) => SplashPage(),
@@ -20,5 +22,6 @@ class Routes {
           invite: ModalRoute.of(ctx).settings.arguments,
         ),
     '/settings': (ctx) => SettingsPage(),
+    '/notification-preferences': (ctx) => NotificationPreferencesPage(),
   };
 }

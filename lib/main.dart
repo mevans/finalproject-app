@@ -11,8 +11,11 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_dio/fresh_dio.dart';
+import 'package:rrule/rrule.dart';
+import 'package:time_machine/time_machine.dart';
 
 class LoggerBloc extends BlocObserver {
   @override
@@ -31,6 +34,8 @@ class LoggerBloc extends BlocObserver {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await TimeMachine.initialize({'rootBundle': rootBundle});
+  final l10n = await RruleL10nEn.create();
   EquatableConfig.stringify = true;
   // Bloc.observer = LoggerBloc();
   final url = 'http://192.168.0.25:8000/patient/';
@@ -64,6 +69,7 @@ void main() async {
                   )),
           RepositoryProvider(create: (ctx) => AlertService()),
           RepositoryProvider(create: (ctx) => DynamicLinkService()),
+          RepositoryProvider(create: (ctx) => l10n),
         ],
         child: App(),
       ),

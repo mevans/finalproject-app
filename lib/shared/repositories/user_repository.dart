@@ -1,6 +1,7 @@
 import 'package:app/shared/models/auth_data.dart';
 import 'package:app/shared/models/patient.dart';
 import 'package:app/shared/models/valid_invite.dart';
+import 'package:app/shared/models/variable_notification_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 
@@ -59,5 +60,28 @@ class UserRepository {
       'password2': password2,
       'code': code,
     }).then((response) => AuthData.fromJson(response.data));
+  }
+
+  Future<List<VariableNotificationPreference>> getNotificationPreferences() {
+    return this
+        .dio
+        .get('notification-preferences?expand=instance.variable')
+        .then((response) {
+      List instances = response.data;
+      return instances
+          .map((i) => VariableNotificationPreference.fromJson(i))
+          .toList();
+    });
+  }
+
+  Future<void> updateNotificationPreferences(
+    List<VariableNotificationPreference> notificationPreferences,
+  ) {
+    return Future.wait(notificationPreferences.map((p) {
+      return this.dio.patch(
+            'notification-preferences/${p.id}/',
+            data: p.toPatchJson(),
+          );
+    }));
   }
 }

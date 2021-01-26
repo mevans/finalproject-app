@@ -1,4 +1,6 @@
 import 'package:app/core/authentication/bloc/authentication_bloc.dart';
+import 'package:app/core/navigation/bloc/navigation_bloc.dart';
+import 'package:app/core/navigation/constants/routes.dart';
 import 'package:app/shared/services/alert_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +12,12 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   AuthenticationBloc _authenticationBloc;
+  NavigationBloc _navigationBloc;
 
   @override
   void initState() {
     _authenticationBloc = context.read<AuthenticationBloc>();
+    _navigationBloc = context.read<NavigationBloc>();
     super.initState();
   }
 
@@ -55,7 +59,8 @@ class _SettingsPageState extends State<SettingsPage> {
             ListTile(
               title: Text("Notifications"),
               trailing: Icon(Icons.keyboard_arrow_right),
-              onTap: () {},
+              onTap: () => _navigationBloc
+                  .add(NavigationPush(Routes.notificationPreferences)),
             ),
             Divider(height: 0),
             ListTile(

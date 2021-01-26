@@ -5,6 +5,8 @@ import 'package:app/shared/models/variable_instance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rrule/rrule.dart';
 
 class VariablesList extends StatelessWidget {
   final List<VariableInstance> variables;
@@ -30,6 +32,11 @@ class VariablesList extends StatelessWidget {
     this.onRangeClear,
   }) : super(key: key);
 
+  String getVariableOccurrence(
+      VariableInstance variable, BuildContext context) {
+    return variable.schedule?.toText(l10n: context.read<RruleL10nEn>()) ?? null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -38,6 +45,7 @@ class VariablesList extends StatelessWidget {
         final variable = variables[index];
         final isExpanded = expandedPanels.contains(variable.id);
         final responded = respondedVariables.contains(variable.variable.id);
+        final occurrence = getVariableOccurrence(variable, context);
         return Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -68,17 +76,18 @@ class VariablesList extends StatelessWidget {
                                     )
                                   : null),
                             ),
-                            Text(
-                              "Every day",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .color
-                                    .withOpacity(0.5),
-                              ),
-                            )
+                            if (occurrence != null)
+                              Text(
+                                occurrence,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      .color
+                                      .withOpacity(0.5),
+                                ),
+                              )
                           ],
                         ),
                       ),
