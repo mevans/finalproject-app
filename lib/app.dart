@@ -13,6 +13,14 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final GlobalKey<NavigatorState> navigator = GlobalKey();
+  AuthenticationBloc _authenticationBloc;
+
+  @override
+  void initState() {
+    _authenticationBloc = AuthenticationBloc(read: context.read)
+      ..add(AppStarted());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +28,7 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<AuthenticationBloc>(
           lazy: false,
-          create: (ctx) =>
-              AuthenticationBloc(read: ctx.read)..add(AppStarted()),
+          create: (ctx) => _authenticationBloc,
         ),
         BlocProvider<NotificationBloc>(
           lazy: false,
@@ -42,13 +49,15 @@ class _AppState extends State<App> {
           ),
         ),
       ],
-      child: MaterialApp(
-        navigatorKey: navigator,
-        theme: ThemeData(),
-        darkTheme: ThemeData.dark(),
-        themeMode: ThemeMode.dark,
-        debugShowCheckedModeBanner: false,
-        routes: Routes.routes,
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, data) => MaterialApp(
+          navigatorKey: navigator,
+          theme: ThemeData(),
+          darkTheme: ThemeData.dark(),
+          themeMode: data?.preferences?.getThemeMode(),
+          debugShowCheckedModeBanner: false,
+          routes: Routes.routes,
+        ),
       ),
     );
   }

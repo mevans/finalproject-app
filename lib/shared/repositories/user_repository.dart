@@ -1,5 +1,6 @@
 import 'package:app/shared/models/auth_data.dart';
 import 'package:app/shared/models/patient.dart';
+import 'package:app/shared/models/user_preferences.dart';
 import 'package:app/shared/models/valid_invite.dart';
 import 'package:app/shared/models/variable_notification_preference.dart';
 import 'package:flutter/material.dart';
@@ -83,5 +84,19 @@ class UserRepository {
             data: p.toPatchJson(),
           );
     }));
+  }
+
+  Future<UserPreferences> getPreferences() {
+    return this
+        .dio
+        .get('preferences')
+        .then((r) => UserPreferences.fromJson(r.data));
+  }
+
+  Future<UserPreferences> updatePreferences(UserPreferences userPreferences) {
+    return this
+        .dio
+        .patch('preferences', data: userPreferences.toJson())
+        .then((r) => UserPreferences.fromJson(r.data));
   }
 }

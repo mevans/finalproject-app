@@ -1,6 +1,7 @@
 import 'package:app/core/authentication/bloc/authentication_bloc.dart';
 import 'package:app/core/navigation/bloc/navigation_bloc.dart';
 import 'package:app/core/navigation/constants/routes.dart';
+import 'package:app/shared/models/user_theme.enum.dart';
 import 'package:app/shared/services/alert_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,10 +64,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   .add(NavigationPush(Routes.notificationPreferences)),
             ),
             Divider(height: 0),
-            ListTile(
-              title: Text("Colour Theme"),
-              trailing: Icon(Icons.keyboard_arrow_right),
-              onTap: () {},
+            SwitchListTile(
+              title: Text("Dark Mode"),
+              onChanged: (b) => _authenticationBloc.add(ToggleTheme()),
+              value: state.preferences.userTheme == UserTheme.DARK,
             ),
             Divider(height: 0),
             SizedBox(height: 32),

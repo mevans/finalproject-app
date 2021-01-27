@@ -29,3 +29,5 @@ class OpenDynamicLink extends AuthenticationEvent {
 
   OpenDynamicLink(this.uri) : super([uri]);
 }
+
+class ToggleTheme extends AuthenticationEvent {}

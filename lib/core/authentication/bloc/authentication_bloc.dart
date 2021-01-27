@@ -9,6 +9,8 @@ import 'package:app/shared/models/bloc_event.dart';
 import 'package:app/shared/models/bloc_state.dart';
 import 'package:app/shared/models/nullable.dart';
 import 'package:app/shared/models/patient.dart';
+import 'package:app/shared/models/user_preferences.dart';
+import 'package:app/shared/models/user_theme.enum.dart';
 import 'package:app/shared/repositories/token_repository.dart';
 import 'package:app/shared/repositories/user_repository.dart';
 import 'package:app/shared/services/dynamic_link_service.dart';
@@ -84,9 +86,13 @@ class AuthenticationBloc
     }
 
     if (event is GetUser) {
-      final user = await userRepository.getUser();
+      final userData = await Future.wait([
+        userRepository.getUser(),
+        userRepository.getPreferences(),
+      ]);
       yield state.copyWith(
-        user: Nullable(user),
+        user: Nullable(userData[0]),
+        preferences: Nullable(userData[1]),
         initialising: false,
       );
     }
@@ -120,6 +126,18 @@ class AuthenticationBloc
               .add(ShowErrorSnackbar("Invalid invite. It may have expired."));
         }
       }
+    }
+
+    if (event is ToggleTheme) {
+      final preferencesUpdate = state.preferences.copyWith(
+        userTheme: state.preferences.userTheme == UserTheme.LIGHT
+            ? UserTheme.DARK
+            : UserTheme.LIGHT,
+      );
+      yield state.copyWith(
+        preferences: Nullable(preferencesUpdate),
+      );
+      await userRepository.updatePreferences(preferencesUpdate);
     }
   }
 

@@ -43,7 +43,7 @@ void main() async {
     ..options.baseUrl = url
     ..interceptors.add(InterceptorsWrapper(
       onRequest: (r) =>
-          Future.delayed(Duration(milliseconds: 300)).then((d) => r),
+          Future.delayed(Duration(milliseconds: 100)).then((d) => r),
     ));
   final tokenDio = Dio()..options.baseUrl = url;
   runApp(
