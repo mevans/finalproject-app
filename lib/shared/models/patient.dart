@@ -2,6 +2,7 @@ import 'package:app/shared/models/user.dart';
 import 'package:equatable/equatable.dart';
 
 class Patient extends Equatable {
+  final int id;
   final String email;
   final String firstName;
   final String lastName;
@@ -11,6 +12,7 @@ class Patient extends Equatable {
   final User doctor;
 
   Patient({
+    this.id,
     this.email,
     this.firstName,
     this.lastName,
@@ -21,10 +23,11 @@ class Patient extends Equatable {
 
   @override
   List<Object> get props =>
-      [email, firstName, lastName, isDoctor, isPatient, doctor];
+      [id, email, firstName, lastName, isDoctor, isPatient, doctor];
 
   factory Patient.fromJson(Map<String, dynamic> json) {
     return Patient(
+      id: json['id'],
       email: json['email'],
       firstName: json['first_name'],
       lastName: json['last_name'],

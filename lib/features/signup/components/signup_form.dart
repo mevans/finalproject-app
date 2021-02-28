@@ -27,7 +27,6 @@ class SignupForm extends StatelessWidget {
         'email': FormControl(
           value: validInvite?.email ?? "",
           validators: [Validators.required, Validators.email],
-          disabled: validInvite != null,
         ),
         'password': FormControl(validators: [Validators.required]),
         'password2': FormControl(validators: [Validators.required]),

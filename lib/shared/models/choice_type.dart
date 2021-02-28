@@ -14,7 +14,8 @@ class ChoiceType extends Equatable {
   factory ChoiceType.fromJson(Map<String, dynamic> json) {
     return ChoiceType(
       id: json['id'],
-      choices: (json['choices'] as List).map((c) => Choice.fromJson(c)).toList(),
+      choices:
+          (json['choices'] as List).map((c) => Choice.fromJson(c)).toList(),
       variable: json['variable'],
     );
   }

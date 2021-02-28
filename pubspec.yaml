@@ -38,6 +38,8 @@ dependencies:
   firebase_messaging: ^8.0.0-dev.11
   firebase_dynamic_links: ^0.7.0+1
   rrule: ^0.1.2
+  ably_flutter: ^1.2.0-preview.1
+  rxdart: ^0.25.0
 
 dev_dependencies:
   flutter_test:

@@ -5,3 +5,9 @@ abstract class RootEvent {}
 class AuthenticatedEvent extends RootEvent {}
 
 class UnauthenticatedEvent extends RootEvent {}
+
+class PatientAuthenticatedEvent extends RootEvent {
+  final Patient patient;
+
+  PatientAuthenticatedEvent(this.patient);
+}

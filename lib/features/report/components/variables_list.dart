@@ -46,6 +46,7 @@ class VariablesList extends StatelessWidget {
         final isExpanded = expandedPanels.contains(variable.id);
         final responded = respondedVariables.contains(variable.variable.id);
         final occurrence = getVariableOccurrence(variable, context);
+        print(occurrence);
         return Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

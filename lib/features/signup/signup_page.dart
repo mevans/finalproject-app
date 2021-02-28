@@ -21,7 +21,6 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   void initState() {
-    print("here");
     _signupBloc = SignupBloc(
       read: context.read,
       invite: widget.invite,

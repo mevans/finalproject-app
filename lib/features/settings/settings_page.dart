@@ -30,7 +30,6 @@ class _SettingsPageState extends State<SettingsPage> {
               "Are you sure you want to log out? You will stop receiving notifications.",
         );
     if (!confirm) return;
-    print("here");
     _authenticationBloc.add(LoggedOut());
   }
 

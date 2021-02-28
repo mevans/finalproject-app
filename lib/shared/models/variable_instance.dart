@@ -16,7 +16,7 @@ class VariableInstance extends Equatable {
   });
 
   @override
-  List<Object> get props => [id, patient, variable];
+  List<Object> get props => [id, patient, variable, schedule];
 
   factory VariableInstance.fromJson(Map<String, dynamic> json) {
     return VariableInstance(

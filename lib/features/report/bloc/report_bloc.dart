@@ -1,3 +1,4 @@
+import 'package:app/core/realtime/services/realtime_service.dart';
 import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/core/snackbar/bloc/snackbar_bloc.dart';
 import 'package:app/shared/models/bloc_event.dart';
@@ -19,17 +20,24 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   final Locator read;
   RootBloc rootBloc;
   VariableRepository variableRepository;
+  RealtimeService realtimeService;
 
   ReportBloc({
     @required this.read,
   }) : super(ReportState.initial) {
     rootBloc = read<RootBloc>();
     variableRepository = read<VariableRepository>();
+    realtimeService = read<RealtimeService>();
+
+    realtimeService.getMessageStream(names: [
+      'variable',
+      'variableinstance'
+    ]).listen((m) => add(ReportRealtimeUpdateEvent()));
   }
 
   @override
   Stream<ReportState> mapEventToState(ReportEvent event) async* {
-    if (event is ReportEnterPageEvent) {
+    if (event is ReportEnterPageEvent || event is ReportRealtimeUpdateEvent) {
       final variables = await this.variableRepository.getVariables();
       yield state.copyWith(
         initialising: false,
@@ -53,7 +61,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         choiceResponses.remove(event.response);
       } else {
         final existing = choiceResponses.firstWhere(
-            (r) => r.variable == event.response.variable,
+                (r) => r.variable == event.response.variable,
             orElse: () => null);
         if (existing == null) {
           choiceResponses.add(event.response);
@@ -69,7 +77,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     if (event is ReportRangeResponse) {
       final rangeResponses = [...state.rangeResponses];
       final existing = rangeResponses.firstWhere(
-          (r) => r.variable == event.response.variable,
+              (r) => r.variable == event.response.variable,
           orElse: () => null);
       if (existing != null) {
         rangeResponses.remove(existing);
@@ -120,5 +128,11 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       ...state.rangeResponses.map((r) => r.variable),
       ...state.choiceResponses.map((r) => r.variable),
     ];
+  }
+
+  @override
+  Future<Function> close() {
+    print("closing");
+    super.close();
   }
 }

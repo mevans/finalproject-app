@@ -39,7 +39,8 @@ class Variable extends Equatable {
       id: json['id'],
       name: json['name'],
       type: VariableType.from[json['type']],
-      choice: json['choice'] != null ? ChoiceType.fromJson(json['choice']) : null,
+      choice:
+          json['choice'] != null ? ChoiceType.fromJson(json['choice']) : null,
       range: json['range'] != null ? RangeType.fromJson(json['range']) : null,
     );
   }

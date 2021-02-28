@@ -114,13 +114,10 @@ class AuthenticationBloc
             "Cannot accept invite as you're already authenticated"));
       } else {
         final token = event.uri.queryParameters['token'];
-        print(token);
         try {
           final invite = await userRepository.verifyInviteToken(token: token);
-          print(invite);
           this.rootBloc.add(NavigationPush(Routes.signup, data: invite));
         } catch (e) {
-          print(e);
           this
               .rootBloc
               .add(ShowErrorSnackbar("Invalid invite. It may have expired."));
@@ -152,6 +149,10 @@ class AuthenticationBloc
     }
     if (statusTransitions(transition, AuthenticationStatus.unauthenticated)) {
       rootBloc.add(UnauthenticatedEvent());
+    }
+    if (transition.currentState.user == null &&
+        transition.nextState.user != null) {
+      rootBloc.add(PatientAuthenticatedEvent(transition.nextState.user));
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:app/app.dart';
 import 'package:app/core/authentication/authentication_interceptor.dart';
 import 'package:app/core/notifications/token_interceptor.dart';
+import 'package:app/core/realtime/services/realtime_service.dart';
 import 'package:app/core/root_bloc/root_bloc.dart';
 import 'package:app/shared/repositories/token_repository.dart';
 import 'package:app/shared/repositories/user_repository.dart';
@@ -38,13 +39,8 @@ void main() async {
   final l10n = await RruleL10nEn.create();
   EquatableConfig.stringify = true;
   // Bloc.observer = LoggerBloc();
-  final url = 'http://192.168.0.25:8000/patient/';
-  final dio = Dio()
-    ..options.baseUrl = url
-    ..interceptors.add(InterceptorsWrapper(
-      onRequest: (r) =>
-          Future.delayed(Duration(milliseconds: 100)).then((d) => r),
-    ));
+  final url = 'https://proj-api.herokuapp.com/patient/';
+  final dio = Dio()..options.baseUrl = url;
   final tokenDio = Dio()..options.baseUrl = url;
   runApp(
     BlocProvider<RootBloc>(
@@ -70,6 +66,7 @@ void main() async {
           RepositoryProvider(create: (ctx) => AlertService()),
           RepositoryProvider(create: (ctx) => DynamicLinkService()),
           RepositoryProvider(create: (ctx) => l10n),
+          RepositoryProvider(create: (ctx) => RealtimeService()),
         ],
         child: App(),
       ),

@@ -3,4 +3,3 @@ enum SnackbarType {
   Error,
   Info,
 }
-

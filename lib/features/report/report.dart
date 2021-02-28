@@ -127,4 +127,10 @@ class _ReportPageState extends State<ReportPage> {
       },
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _reportBloc.close();
+  }
 }

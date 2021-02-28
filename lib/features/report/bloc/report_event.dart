@@ -6,6 +6,8 @@ abstract class ReportEvent extends BlocEvent {
 
 class ReportEnterPageEvent extends ReportEvent {}
 
+class ReportRealtimeUpdateEvent extends ReportEvent {}
+
 class ReportSubmitReportEvent extends ReportEvent {}
 
 class ReportTogglePanelExpansion extends ReportEvent {
