@@ -18,7 +18,11 @@ class VerifyCodeForm extends StatelessWidget {
     return ReactiveFormBuilder(
       form: () => FormGroup({
         'code': FormControl(
-          validators: [Validators.minLength(5), Validators.maxLength(5)],
+          validators: [
+            Validators.minLength(5),
+            Validators.maxLength(5),
+            Validators.required,
+          ],
         ),
       }),
       builder: (ctx, form, child) => Column(
