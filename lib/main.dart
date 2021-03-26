@@ -42,7 +42,6 @@ void main() async {
   final url = 'https://proj-api.herokuapp.com/patient/';
   final dio = Dio()..options.baseUrl = url;
   final tokenDio = Dio()..options.baseUrl = url;
-  Image.network(src)
   runApp(
     BlocProvider<RootBloc>(
       lazy: true,
