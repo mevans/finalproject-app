@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:app/core/root_bloc/root_bloc.dart';
-import 'package:app/core/snackbar/enums/snackbar_type.dart';
-import 'package:app/shared/models/bloc_event.dart';
+import 'package:tracker/core/root_bloc/root_bloc.dart';
+import 'package:tracker/core/snackbar/enums/snackbar_type.dart';
+import 'package:tracker/shared/models/bloc_event.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

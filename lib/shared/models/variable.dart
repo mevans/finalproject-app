@@ -1,5 +1,5 @@
-import 'package:app/shared/models/choice_type.dart';
-import 'package:app/shared/models/range_type.dart';
+import 'package:tracker/shared/models/choice_type.dart';
+import 'package:tracker/shared/models/range_type.dart';
 import 'package:equatable/equatable.dart';
 
 enum VariableType { from, range, choice }

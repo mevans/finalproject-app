@@ -1,4 +1,4 @@
-import 'package:app/shared/models/user.dart';
+import 'package:tracker/shared/models/user.dart';
 import 'package:equatable/equatable.dart';
 
 class Patient extends Equatable {

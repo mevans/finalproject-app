@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:app/core/realtime/services/realtime_service.dart';
-import 'package:app/core/root_bloc/root_bloc.dart';
-import 'package:app/shared/models/bloc_event.dart';
-import 'package:app/shared/models/bloc_state.dart';
-import 'package:app/shared/models/nullable.dart';
+import 'package:tracker/core/realtime/services/realtime_service.dart';
+import 'package:tracker/core/root_bloc/root_bloc.dart';
+import 'package:tracker/shared/models/bloc_event.dart';
+import 'package:tracker/shared/models/bloc_state.dart';
+import 'package:tracker/shared/models/nullable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

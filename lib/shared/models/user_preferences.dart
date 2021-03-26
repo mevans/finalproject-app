@@ -1,5 +1,5 @@
-import 'package:app/shared/models/user_theme.enum.dart';
-import 'package:app/shared/utils.dart';
+import 'package:tracker/shared/models/user_theme.enum.dart';
+import 'package:tracker/shared/utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 

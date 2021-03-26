@@ -1,8 +1,8 @@
-import 'package:app/features/signup/bloc/signup_bloc.dart';
-import 'package:app/features/signup/components/signup_form.dart';
-import 'package:app/features/signup/components/verify_code_form.dart';
-import 'package:app/shared/components/auth_page.dart';
-import 'package:app/shared/models/valid_invite.dart';
+import 'package:tracker/features/signup/bloc/signup_bloc.dart';
+import 'package:tracker/features/signup/components/signup_form.dart';
+import 'package:tracker/features/signup/components/verify_code_form.dart';
+import 'package:tracker/shared/components/auth_page.dart';
+import 'package:tracker/shared/models/valid_invite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +32,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return AuthPage(
       child: BlocBuilder<SignupBloc, SignupState>(
-        cubit: _signupBloc,
+        bloc: _signupBloc,
         builder: (ctx, state) {
           return state.validInvite == null
               ? VerifyCodeForm(

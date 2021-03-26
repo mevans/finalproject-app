@@ -1,5 +1,5 @@
-import 'package:app/features/settings/notification_preferences/bloc/notification_preferences_bloc.dart';
-import 'package:app/shared/models/variable_notification_preference.dart';
+import 'package:tracker/features/settings/notification_preferences/bloc/notification_preferences_bloc.dart';
+import 'package:tracker/shared/models/variable_notification_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rrule/rrule.dart';
@@ -43,7 +43,7 @@ class _NotificationPreferencesPageState
   Widget build(BuildContext context) {
     return BlocBuilder<NotificationPreferencesBloc,
         NotificationPreferencesState>(
-      cubit: _notificationPreferencesBloc,
+      bloc: _notificationPreferencesBloc,
       builder: (ctx, state) => Scaffold(
         appBar: AppBar(
           title: Text("Notification Preferences"),

@@ -1,4 +1,4 @@
-import 'package:app/shared/models/patient.dart';
+import 'package:tracker/shared/models/patient.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

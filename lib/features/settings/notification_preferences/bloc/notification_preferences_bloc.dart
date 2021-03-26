@@ -1,10 +1,10 @@
-import 'package:app/core/navigation/bloc/navigation_bloc.dart';
-import 'package:app/core/root_bloc/root_bloc.dart';
-import 'package:app/core/snackbar/bloc/snackbar_bloc.dart';
-import 'package:app/shared/models/bloc_event.dart';
-import 'package:app/shared/models/bloc_state.dart';
-import 'package:app/shared/models/variable_notification_preference.dart';
-import 'package:app/shared/repositories/user_repository.dart';
+import 'package:tracker/core/navigation/bloc/navigation_bloc.dart';
+import 'package:tracker/core/root_bloc/root_bloc.dart';
+import 'package:tracker/core/snackbar/bloc/snackbar_bloc.dart';
+import 'package:tracker/shared/models/bloc_event.dart';
+import 'package:tracker/shared/models/bloc_state.dart';
+import 'package:tracker/shared/models/variable_notification_preference.dart';
+import 'package:tracker/shared/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';

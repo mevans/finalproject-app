@@ -1,4 +1,4 @@
-import 'package:app/shared/models/variable.dart';
+import 'package:tracker/shared/models/variable.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rrule/rrule.dart';
 

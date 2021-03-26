@@ -1,4 +1,4 @@
-import 'package:app/shared/models/auth_data.dart';
+import 'package:tracker/shared/models/auth_data.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 

@@ -1,8 +1,8 @@
-import 'package:app/shared/models/auth_data.dart';
-import 'package:app/shared/models/patient.dart';
-import 'package:app/shared/models/user_preferences.dart';
-import 'package:app/shared/models/valid_invite.dart';
-import 'package:app/shared/models/variable_notification_preference.dart';
+import 'package:tracker/shared/models/auth_data.dart';
+import 'package:tracker/shared/models/patient.dart';
+import 'package:tracker/shared/models/user_preferences.dart';
+import 'package:tracker/shared/models/valid_invite.dart';
+import 'package:tracker/shared/models/variable_notification_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 

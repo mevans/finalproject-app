@@ -1,4 +1,4 @@
-name: app
+name: tracker
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -27,19 +27,20 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
   fresh_dio: ^0.2.0
-  flutter_bloc: ^6.1.1
-  equatable: ^1.2.5
-  flutter_secure_storage: ^3.3.5
+  flutter_bloc: ^7.0.0
+  equatable: ^2.0.0
+  flutter_secure_storage: ^4.1.0
   flushbar: ^1.10.4
-  flutter_spinbox: ^0.3.0
-  reactive_forms: ^7.6.3
-  firebase_messaging: ^8.0.0-dev.11
-  firebase_dynamic_links: ^0.7.0+1
+  flutter_spinbox: ^0.4.0
+  reactive_forms: ^10.0.2
+  firebase_messaging: ^9.1.0
+  firebase_dynamic_links: ^0.8.0
   rrule: ^0.1.2
   ably_flutter: ^1.2.0-preview.1
-  rxdart: ^0.25.0
+  rxdart: ^0.26.0
+  time_machine: ^0.9.16
 
 dev_dependencies:
   flutter_test:

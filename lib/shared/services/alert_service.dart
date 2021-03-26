@@ -1,4 +1,4 @@
-import 'package:app/core/navigation/bloc/navigation_bloc.dart';
+import 'package:tracker/core/navigation/bloc/navigation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

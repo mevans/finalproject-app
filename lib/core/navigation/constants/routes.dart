@@ -1,9 +1,9 @@
-import 'package:app/features/login/login_page.dart';
-import 'package:app/features/report/report.dart';
-import 'package:app/features/settings/notification_preferences/notification_preferences_page.dart';
-import 'package:app/features/settings/settings_page.dart';
-import 'package:app/features/signup/signup_page.dart';
-import 'package:app/features/splash/splash.dart';
+import 'package:tracker/features/login/login_page.dart';
+import 'package:tracker/features/report/report.dart';
+import 'package:tracker/features/settings/notification_preferences/notification_preferences_page.dart';
+import 'package:tracker/features/settings/settings_page.dart';
+import 'package:tracker/features/signup/signup_page.dart';
+import 'package:tracker/features/splash/splash.dart';
 import 'package:flutter/material.dart';
 
 class Routes {

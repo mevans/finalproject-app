@@ -1,7 +1,7 @@
-import 'package:app/features/report/components/variable_input.dart';
-import 'package:app/shared/models/choice_response.dart';
-import 'package:app/shared/models/range_response.dart';
-import 'package:app/shared/models/variable_instance.dart';
+import 'package:tracker/features/report/components/variable_input.dart';
+import 'package:tracker/shared/models/choice_response.dart';
+import 'package:tracker/shared/models/range_response.dart';
+import 'package:tracker/shared/models/variable_instance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

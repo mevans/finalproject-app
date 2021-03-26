@@ -1,13 +1,13 @@
-import 'package:app/app.dart';
-import 'package:app/core/authentication/authentication_interceptor.dart';
-import 'package:app/core/notifications/token_interceptor.dart';
-import 'package:app/core/realtime/services/realtime_service.dart';
-import 'package:app/core/root_bloc/root_bloc.dart';
-import 'package:app/shared/repositories/token_repository.dart';
-import 'package:app/shared/repositories/user_repository.dart';
-import 'package:app/shared/repositories/variable_repository.dart';
-import 'package:app/shared/services/alert_service.dart';
-import 'package:app/shared/services/dynamic_link_service.dart';
+import 'package:tracker/app.dart';
+import 'package:tracker/core/authentication/authentication_interceptor.dart';
+import 'package:tracker/core/notifications/token_interceptor.dart';
+import 'package:tracker/core/realtime/services/realtime_service.dart';
+import 'package:tracker/core/root_bloc/root_bloc.dart';
+import 'package:tracker/shared/repositories/token_repository.dart';
+import 'package:tracker/shared/repositories/user_repository.dart';
+import 'package:tracker/shared/repositories/variable_repository.dart';
+import 'package:tracker/shared/services/alert_service.dart';
+import 'package:tracker/shared/services/dynamic_link_service.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -42,6 +42,7 @@ void main() async {
   final url = 'https://proj-api.herokuapp.com/patient/';
   final dio = Dio()..options.baseUrl = url;
   final tokenDio = Dio()..options.baseUrl = url;
+  Image.network(src)
   runApp(
     BlocProvider<RootBloc>(
       lazy: true,

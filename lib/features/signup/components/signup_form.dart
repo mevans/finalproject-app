@@ -1,4 +1,4 @@
-import 'package:app/shared/models/valid_invite.dart';
+import 'package:tracker/shared/models/valid_invite.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 

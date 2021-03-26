@@ -1,7 +1,7 @@
-import 'package:app/core/navigation/bloc/navigation_bloc.dart';
-import 'package:app/core/navigation/constants/routes.dart';
-import 'package:app/features/report/bloc/report_bloc.dart';
-import 'package:app/features/report/components/variables_list.dart';
+import 'package:tracker/core/navigation/bloc/navigation_bloc.dart';
+import 'package:tracker/core/navigation/constants/routes.dart';
+import 'package:tracker/features/report/bloc/report_bloc.dart';
+import 'package:tracker/features/report/components/variables_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +27,7 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ReportBloc, ReportState>(
-      cubit: _reportBloc,
+      bloc: _reportBloc,
       builder: (context, state) {
         final reportButtonDisabled = state.submittingReport ||
             (state.rangeResponses.isEmpty && state.choiceResponses.isEmpty);

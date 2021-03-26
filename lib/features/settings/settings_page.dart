@@ -1,8 +1,8 @@
-import 'package:app/core/authentication/bloc/authentication_bloc.dart';
-import 'package:app/core/navigation/bloc/navigation_bloc.dart';
-import 'package:app/core/navigation/constants/routes.dart';
-import 'package:app/shared/models/user_theme.enum.dart';
-import 'package:app/shared/services/alert_service.dart';
+import 'package:tracker/core/authentication/bloc/authentication_bloc.dart';
+import 'package:tracker/core/navigation/bloc/navigation_bloc.dart';
+import 'package:tracker/core/navigation/constants/routes.dart';
+import 'package:tracker/shared/models/user_theme.enum.dart';
+import 'package:tracker/shared/services/alert_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

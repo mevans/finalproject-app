@@ -1,9 +1,9 @@
-import 'package:app/core/authentication/bloc/authentication_bloc.dart';
-import 'package:app/core/navigation/bloc/navigation_bloc.dart';
-import 'package:app/core/navigation/constants/routes.dart';
-import 'package:app/core/notifications/bloc/notification_bloc.dart';
-import 'package:app/core/realtime/bloc/realtime_bloc.dart';
-import 'package:app/core/snackbar/bloc/snackbar_bloc.dart';
+import 'package:tracker/core/authentication/bloc/authentication_bloc.dart';
+import 'package:tracker/core/navigation/bloc/navigation_bloc.dart';
+import 'package:tracker/core/navigation/constants/routes.dart';
+import 'package:tracker/core/notifications/bloc/notification_bloc.dart';
+import 'package:tracker/core/realtime/bloc/realtime_bloc.dart';
+import 'package:tracker/core/snackbar/bloc/snackbar_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

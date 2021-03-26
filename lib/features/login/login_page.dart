@@ -1,7 +1,7 @@
-import 'package:app/core/navigation/bloc/navigation_bloc.dart';
-import 'package:app/core/navigation/constants/routes.dart';
-import 'package:app/features/login/bloc/login_bloc.dart';
-import 'package:app/shared/components/auth_page.dart';
+import 'package:tracker/core/navigation/bloc/navigation_bloc.dart';
+import 'package:tracker/core/navigation/constants/routes.dart';
+import 'package:tracker/features/login/bloc/login_bloc.dart';
+import 'package:tracker/shared/components/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return AuthPage(
       child: BlocBuilder<LoginBloc, LoginState>(
-        cubit: _loginBloc,
+        bloc: _loginBloc,
         builder: (ctx, state) => LoginForm(
           onSubmit: (email, password) => _loginBloc.add(
             LoginSubmit(email, password),
