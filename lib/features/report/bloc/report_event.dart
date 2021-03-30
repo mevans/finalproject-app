@@ -41,3 +41,5 @@ class ReportUpdateNote extends ReportEvent {
 
   ReportUpdateNote(this.note) : super([note]);
 }
+
+class ReportRefreshEvent extends ReportEvent {}

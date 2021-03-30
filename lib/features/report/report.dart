@@ -1,10 +1,10 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tracker/core/navigation/bloc/navigation_bloc.dart';
 import 'package:tracker/core/navigation/constants/routes.dart';
 import 'package:tracker/features/report/bloc/report_bloc.dart';
 import 'package:tracker/features/report/components/variables_list.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/note.dart';
 
@@ -45,31 +45,35 @@ class _ReportPageState extends State<ReportPage> {
               ],
             ),
             body: !state.initialising
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: VariablesList(
-                          variables: state.variables,
-                          expandedPanels: state.openPanels,
-                          choiceResponses: state.choiceResponses,
-                          rangeResponses: state.rangeResponses,
-                          respondedVariables: _reportBloc.respondedVariables(),
-                          onPanelToggled: (id) => _reportBloc.add(
-                            ReportTogglePanelExpansion(id),
-                          ),
-                          onChoiceToggle: (response) => _reportBloc.add(
-                            ReportChoiceResponseToggle(response),
-                          ),
-                          onRangeResponse: (response) => _reportBloc.add(
-                            ReportRangeResponse(response),
-                          ),
-                          onRangeClear: (variable) => _reportBloc.add(
-                            ReportRangeClear(variable),
+                ? RefreshIndicator(
+                    onRefresh: () async => _reportBloc.add(ReportRefreshEvent()),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: VariablesList(
+                            variables: state.variables,
+                            expandedPanels: state.openPanels,
+                            choiceResponses: state.choiceResponses,
+                            rangeResponses: state.rangeResponses,
+                            respondedVariables:
+                                _reportBloc.respondedVariables(),
+                            onPanelToggled: (id) => _reportBloc.add(
+                              ReportTogglePanelExpansion(id),
+                            ),
+                            onChoiceToggle: (response) => _reportBloc.add(
+                              ReportChoiceResponseToggle(response),
+                            ),
+                            onRangeResponse: (response) => _reportBloc.add(
+                              ReportRangeResponse(response),
+                            ),
+                            onRangeClear: (variable) => _reportBloc.add(
+                              ReportRangeClear(variable),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )
                 : Center(child: CircularProgressIndicator()),
             bottomNavigationBar: AnimatedCrossFade(

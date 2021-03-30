@@ -37,7 +37,10 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
 
   @override
   Stream<ReportState> mapEventToState(ReportEvent event) async* {
-    if (event is ReportEnterPageEvent || event is ReportRealtimeUpdateEvent) {
+    if (event is ReportEnterPageEvent || event is ReportRealtimeUpdateEvent || event is ReportRefreshEvent) {
+      yield state.copyWith(
+        initialising: true,
+      );
       final variables = await this.variableRepository.getVariables();
       yield state.copyWith(
         initialising: false,
